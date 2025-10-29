@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"cross-env PORT=3000 node server.js\" \"cross-env PORT=3001 node server.js\"",
+    "dev": "PORT=3000 node server.js & PORT=3001 node server.js",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --outDir dist/server --ssr src/server-entry.jsx",
@@ -27,7 +27,6 @@
     "@vitejs/plugin-react-swc": "3.8.0",
     "autoprefixer": "^10.4.21",
     "concurrently": "^8.0.1",
-    "cross-env": "^7.0.3",
     "eslint": "9.21.0",
     "eslint-plugin-react-hooks": "5.1.0",
     "eslint-plugin-react-refresh": "0.4.19",

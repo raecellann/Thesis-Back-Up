@@ -3,13 +3,14 @@ import React, { useState } from "react";
 const LoginPage = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [role, setRole] = useState(""); // ✅ track selected role
 
   const baseButtonStyle = {
     color: "#fff",
     cursor: "pointer",
     border: "1px solid #000",
     borderRadius: "4px",
-    padding: "0.6em 1.8em", // reduced height here
+    padding: "0.6em 1.8em", // reduced height
     background: "#000",
     transition: "all 0.2s ease-in-out",
     width: "30%",
@@ -21,11 +22,10 @@ const LoginPage = () => {
     let style = { ...baseButtonStyle };
 
     if (isHovered) {
-      style.color = "#000";
+      style.color = "#fff";
       style.background = "#0066D2";
       style.transform = "translate(-0.25rem, -0.25rem)";
       style.boxShadow = "0.25rem 0.25rem #000";
-      style.color = "#fff";
     }
 
     if (isActive) {
@@ -34,6 +34,15 @@ const LoginPage = () => {
     }
 
     return style;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!role) {
+      alert("Please select whether you are a Student or a Professor.");
+      return;
+    }
+    alert(`Logging in as ${role}`);
   };
 
   return (
@@ -68,18 +77,15 @@ const LoginPage = () => {
       <div className="bg-white shadow-lg rounded-lg p-8 md:p-10 w-full max-w-md relative z-10 border border-gray-200">
         {/* Logo */}
         <div className="flex flex-col items-center mb-6">
-          {/* Replace with your actual Cloudinary link */}
-          <img
-            src="CLOUDINARY_LOGO_URL"
-            alt="ImmacuLearn Logo"
-            className="w-12 h-12 mb-2"
-          />
           <h3 className="text-2xl font-bold text-green-700">ImmacuLearn</h3>
           <p className="text-gray-600 text-sm">Log in to continue</p>
         </div>
 
         {/* Form */}
-        <form className="flex flex-col gap-4 items-center">
+        <form
+          className="flex flex-col gap-4 items-center"
+          onSubmit={handleSubmit}
+        >
           <input
             type="email"
             placeholder="Enter your email address"
@@ -118,7 +124,27 @@ const LoginPage = () => {
             onBlur={(e) => (e.target.style.boxShadow = "2.5px 3px 0 #000")}
           />
 
-          {/* Gumroad-style Button */}
+          {/* ✅ Checkbox Section */}
+          <div className="flex justify-center gap-6 mt-2 w-full">
+            <label className="flex items-center gap-2 text-gray-800 font-medium">
+              <input
+                type="checkbox"
+                checked={role === "Student"}
+                onChange={() => setRole("Student")}
+              />
+              Student
+            </label>
+            <label className="flex items-center gap-2 text-gray-800 font-medium">
+              <input
+                type="checkbox"
+                checked={role === "Professor"}
+                onChange={() => setRole("Professor")}
+              />
+              Professor
+            </label>
+          </div>
+
+          {/* Log in Button */}
           <button
             type="submit"
             style={getButtonStyle()}

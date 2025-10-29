@@ -1,28 +1,48 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 import useSocket from "@/hooks/useSocket.js";
-import ChatList from "../User_chats/user_chats"; // import Sidebar/MainPage
+import ChatList from "../User_chats/user_chats";
 
 const LandingPage = () => {
   const [showMainPage, setShowMainPage] = useState(false);
+  const navigate = useNavigate(); // ✅ Initialize navigation
+
+  const handleLoginClick = () => {
+    navigate("/login"); // ✅ Redirect to login page
+  };
 
   return (
     <div className="max-w-full font-sans bg-gradient-to-r from-white to-[#fef6ff] min-h-screen relative overflow-hidden">
       {/* Navbar */}
       <header className="flex justify-between items-center px-8 py-6">
         <div className="flex items-center gap-2">
-          <img src="./src/assets/book.png" alt="ImmacuLearn" className="w-8 h-8" />
+          <img
+            src="./src/assets/book.png"
+            alt="ImmacuLearn"
+            className="w-8 h-8"
+          />
           <span className="text-xl font-bold">ImmacuLearn</span>
         </div>
 
         <nav className="flex gap-8 text-lg font-medium">
-          <a href="#about" className="text-black hover:text-blue-800">About</a>
-          <a href="#feature" className="text-black hover:text-blue-800">Feature</a>
-          <a href="#contact" className="text-black hover:text-blue-800">Contact Us</a>
+          <a href="#about" className="text-black hover:text-blue-800">
+            About
+          </a>
+          <a href="#feature" className="text-black hover:text-blue-800">
+            Feature
+          </a>
+          <a href="#contact" className="text-black hover:text-blue-800">
+            Contact Us
+          </a>
         </nav>
 
-        <a href="#login" className="relative z-10 text-white font-medium hover:underline">
+        {/* ✅ Use navigate for login button */}
+        <button
+          onClick={handleLoginClick}
+          className="relative z-10 text-white bg-indigo-700 px-4 py-2 rounded-lg font-medium hover:bg-indigo-800"
+        >
           Log In
-        </a>
+        </button>
       </header>
 
       {/* Main Section */}
@@ -53,16 +73,26 @@ const LandingPage = () => {
           </p>
         </div>
 
-        {/* Right Image */} 
-        <div className="mt-10 md:mt-0 relative z-10"> 
-          <img src="./src/assets/heroes.png" alt="Students Learning" className="w-[450px] max-w-full" /> 
-        </div> 
-        <div className="absolute right-0 z-0"> 
-          <img src="./src/assets/Blob.png" alt="" className="w-[500px] max-w-full" /> 
-        </div> 
-        <div className="absolute right-0 z-0"> 
-          <img src="./src/assets/Vector.png" alt="" /> 
-          </div>
+        {/* Right Image */}
+        <div className="mt-10 md:mt-0 relative z-10">
+          <img
+            src="./src/assets/heroes.png"
+            alt="Students Learning"
+            className="w-[450px] max-w-full"
+          />
+        </div>
+
+        <div className="absolute right-0 z-0">
+          <img
+            src="./src/assets/Blob.png"
+            alt=""
+            className="w-[500px] max-w-full"
+          />
+        </div>
+
+        <div className="absolute right-0 z-0">
+          <img src="./src/assets/Vector.png" alt="" />
+        </div>
       </main>
 
       {/* Popups */}
