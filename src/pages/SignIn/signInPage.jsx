@@ -1,40 +1,11 @@
 import React, { useState } from "react";
+import InputField from "@/components/InputField";
+import Button from "@/components/Button";
 
 const LoginPage = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [role, setRole] = useState(""); // ✅ track selected role
-
-  const baseButtonStyle = {
-    color: "#fff",
-    cursor: "pointer",
-    border: "1px solid #000",
-    borderRadius: "4px",
-    padding: "0.6em 1.8em", // reduced height
-    background: "#000",
-    transition: "all 0.2s ease-in-out",
-    width: "30%",
-    fontWeight: "600",
-    fontSize: "0.9rem",
-  };
-
-  const getButtonStyle = () => {
-    let style = { ...baseButtonStyle };
-
-    if (isHovered) {
-      style.color = "#fff";
-      style.background = "#0066D2";
-      style.transform = "translate(-0.25rem, -0.25rem)";
-      style.boxShadow = "0.25rem 0.25rem #000";
-    }
-
-    if (isActive) {
-      style.transform = "translate(0)";
-      style.boxShadow = "none";
-    }
-
-    return style;
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -86,42 +57,18 @@ const LoginPage = () => {
           className="flex flex-col gap-4 items-center"
           onSubmit={handleSubmit}
         >
-          <input
+          <InputField
             type="email"
             placeholder="Enter your email address"
-            style={{
-              maxWidth: "100%",
-              padding: "0.875rem",
-              fontSize: "1rem",
-              border: "1.5px solid #000",
-              borderRadius: "0.5rem",
-              boxShadow: "2.5px 3px 0 #000",
-              outline: "none",
-              transition: "box-shadow ease 0.25s",
-              width: "100%",
-              backgroundColor: "white",
-            }}
-            onFocus={(e) => (e.target.style.boxShadow = "5.5px 7px 0 black")}
-            onBlur={(e) => (e.target.style.boxShadow = "2.5px 3px 0 #000")}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
-          <input
+          <InputField
             type="password"
             placeholder="Enter your password"
-            style={{
-              maxWidth: "100%",
-              padding: "0.875rem",
-              fontSize: "1rem",
-              border: "1.5px solid #000",
-              borderRadius: "0.5rem",
-              boxShadow: "2.5px 3px 0 #000",
-              outline: "none",
-              transition: "box-shadow ease 0.25s",
-              width: "100%",
-              backgroundColor: "white",
-            }}
-            onFocus={(e) => (e.target.style.boxShadow = "5.5px 7px 0 black")}
-            onBlur={(e) => (e.target.style.boxShadow = "2.5px 3px 0 #000")}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           {/* ✅ Checkbox Section */}
@@ -145,16 +92,16 @@ const LoginPage = () => {
           </div>
 
           {/* Log in Button */}
-          <button
+          <Button
             type="submit"
-            style={getButtonStyle()}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onMouseDown={() => setIsActive(true)}
-            onMouseUp={() => setIsActive(false)}
+            style={{
+              width: "30%",
+              background: "#000",
+            }}
+            onClick={handleSubmit}
           >
             Log in
-          </button>
+          </Button>
         </form>
 
         <p className="text-center text-gray-600 text-sm mt-4">

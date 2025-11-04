@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-const Button = ({ children, onClick, className = "", style = {} }) => {
+const Button = ({
+  children,
+  onClick,
+  className = "",
+  style = {},
+  type = "button",
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -37,6 +43,7 @@ const Button = ({ children, onClick, className = "", style = {} }) => {
 
   return (
     <button
+      type={type}
       className={className}
       style={getButtonStyle()}
       onClick={onClick}

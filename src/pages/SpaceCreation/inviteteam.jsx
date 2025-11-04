@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button";
 
-const SpaceCreationPage = () => {
-  const [spaceName, setSpaceName] = useState("");
-  const [next, setnext] = useState("");
-  const [skip, setskip] = useState("");
+const InitialInvitePage = () => {
+  const [invite1, setInvite1] = useState("");
+  const [invite2, setInvite2] = useState("");
+  const [invite3, setInvite3] = useState("");
+  const [next, setNext] = useState(false);
+  const [skip, setSkip] = useState(false);
 
   return (
     <div className="font-sans min-h-screen relative overflow-hidden overflow-x-hidden bg-[#FDFBEE]">
       {/* Navbar */}
       <header className="relative z-10 flex justify-between items-center py-6 text-white">
-        {/* Background wave — trimmed height */}
+        {/* Background wave */}
         <div className="absolute top-0 left-0 w-full overflow-hidden">
           <img
             className="w-full"
@@ -38,57 +40,66 @@ const SpaceCreationPage = () => {
         {/* Left Content */}
         <div className="w-full md:w-1/2 max-w-xl space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight text-black font-grotesque text-center">
-            It all starts with <span className="text-green-600"> Space!</span>
+            Invite your team
           </h1>
 
-        <p className="text-black text-lg font-grotesque font-bold text-center leading-[1.2]">
-            Space is a fun and inspiring place where students come together to
-            share ideas, learn from each other, and work on cool projects. It’s
-            all about teamwork, creativity, and making things happen while
-            having a great time!
+          <p className="text-black text-lg font-grotesque font-bold text-center leading-[1.2]">
+            You’re all set! You may invite your teammates to collaborate with you!
           </p>
 
-          {/* Input Field */}
-          <div className="space-y-4">
-            <label
-              htmlFor="spaceName"
-              className="block text-gray-900 font-semibold"
-            >
-              Enter Space Name:
+          {/* Input Fields */}
+          <div className="space-y-4 flex flex-col">
+            <label className="block text-gray-900 font-semibold">
+              Invite your teammates (username or email):
             </label>
+
+            {/* Invite Field 1 */}
             <InputField
               type="text"
-              id="spaceName"
-              name="spaceName"
-              value={spaceName}
-              onChange={(e) => setSpaceName(e.target.value)}
-              placeholder="Ex. Yesh's Space"
+              value={invite1}
+              onChange={(e) => setInvite1(e.target.value)}
+              placeholder="Member 1"
+              className="w-[60%]"
+              align="right"
+            />
+
+            {/* Invite Field 2 */}
+            <InputField
+              type="text"
+              value={invite2}
+              onChange={(e) => setInvite2(e.target.value)}
+              placeholder="Member 2"
+              className="w-[60%]"
+            />
+
+            {/* Invite Field 3 */}
+            <InputField
+              type="text"
+              value={invite3}
+              onChange={(e) => setInvite3(e.target.value)}
+              placeholder="Member 3"
+              className="w-[60%]"
             />
 
             {/* Buttons */}
-            <div className="flex gap-4 mt-4">
+            <div className="flex gap-4 mt-6">
+            <Button
+            className="text-m py-1 px-4 font-grotesque"
+            style={{
+                background: "linear-gradient(180deg, #3b82f6 0%, #2563eb 100%)",
+                borderRadius: "8px",
+            }}
+            >
+            Next
+            </Button>
               <Button
-                onClick={() => setnext(true)}
-                style={{
-                  background:
-                    "linear-gradient(180deg, #3b82f6 0%, #2563eb 100%)",
-                  borderRadius: "8px",
-                  padding: "0.75rem 1.5rem",
-                    fontFamily: '"Darker Grotesque", sans-serif',
-                }}
-              >
-                Next
-              </Button>
-              
-              <Button
-                onClick={() => setskip(true)}
+                onClick={() => setSkip(true)}
                 style={{
                   background: "#e5e7eb",
                   color: "#000",
                   borderRadius: "8px",
                   padding: "0.75rem 1.5rem",
-                    fontFamily: '"Darker Grotesque", sans-serif',
-
+                  fontFamily: '"Darker Grotesque", sans-serif',
                 }}
               >
                 Skip for now
@@ -99,7 +110,7 @@ const SpaceCreationPage = () => {
 
         {/* Right Image Section */}
         <div className="w-full md:w-1/2 flex justify-center md:justify-end mt-10 md:mt-0 relative">
-          {/* Optional blue shape behind the laptop */}
+          {/* Optional blue shape */}
           <div className="absolute -top-10 right-20 w-[300px] h-[300px] bg-blue-300 rounded-full opacity-40 blur-3xl"></div>
 
           {/* Laptop image */}
@@ -115,4 +126,4 @@ const SpaceCreationPage = () => {
   );
 };
 
-export default SpaceCreationPage;
+export default InitialInvitePage;
