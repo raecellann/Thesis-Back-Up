@@ -8,15 +8,16 @@
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --outDir dist/server --ssr src/server-entry.jsx",
-    "start": "cross-env ENV=production node server.js",
+    "start": "ENV=production node server.js",
     "lint": "eslint ."
   },
   "dependencies": {
+    "crypto-js": "^4.2.0",
     "express": "^4.21.2",
     "lucide-react": "^0.542.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-router-dom": "^7.3.0",
+    "react-router-dom": "^7.9.4",
     "socket.io": "4.8.1",
     "socket.io-client": "4.8.1"
   },
@@ -26,7 +27,6 @@
     "@types/react-dom": "19.0.4",
     "@vitejs/plugin-react-swc": "3.8.0",
     "autoprefixer": "^10.4.21",
-    "concurrently": "^8.0.1",
     "eslint": "9.21.0",
     "eslint-plugin-react-hooks": "5.1.0",
     "eslint-plugin-react-refresh": "0.4.19",
