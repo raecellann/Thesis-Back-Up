@@ -10,7 +10,13 @@ export default defineConfig({
   plugins: [react()],
   server: {
     hmr: {
-      port: parseInt(process.env.PORT) + 2000,
+      // Compute HMR port from PORT env when available; otherwise fall back to a safe default.
+      // On Windows npm scripts the "PORT=..." syntax doesn't set env vars — avoid NaN.
+      port: Number.isFinite(Number(process.env.PORT)) && process.env.PORT !== undefined
+        ? parseInt(process.env.PORT, 10) + 2000
+        : 5173,
+      host: 'localhost',
+      protocol: 'ws',
     },
   },
   resolve: {

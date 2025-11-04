@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "PORT=3000 node server.js & PORT=3001 node server.js",
+  "dev": "cross-env PORT=3000 node server.js",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --outDir dist/server --ssr src/server-entry.jsx",
@@ -31,6 +31,7 @@
     "eslint-plugin-react-hooks": "5.1.0",
     "eslint-plugin-react-refresh": "0.4.19",
     "globals": "15.15.0",
+  "cross-env": "^7.0.3",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "vite": "6.2.1"
