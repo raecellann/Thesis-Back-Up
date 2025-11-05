@@ -4,8 +4,8 @@ import ChatList from "../User_chats/user_chats";
 import LandingPage2 from "./landingPage2";
 import TopFeatures from "./topFeatures";
 import { encryptData, decryptData } from "../../hooks/useLocalStorage";
-import AnimatedBackground from "@/components/AnimatedBackground";
-import Button from "@/components/Button";
+import AnimatedBackground from "@/pages/component/AnimatedBackground";
+import Button from "@/pages/component/Button";
 
 const LandingPage = () => {
   const [showMainPage, setShowMainPage] = useState(false);

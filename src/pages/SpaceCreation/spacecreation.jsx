@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import InputField from "@/components/InputField";
-import Button from "@/components/Button";
+import InputField from "@/pages/component/InputField";
+import Button from "@/pages/component/Button";
 
 const SpaceCreationPage = () => {
   const [spaceName, setSpaceName] = useState("");
