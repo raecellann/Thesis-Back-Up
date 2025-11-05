@@ -62,7 +62,8 @@ const SpaceCreationPage = () => {
               name="spaceName"
               value={spaceName}
               onChange={(e) => setSpaceName(e.target.value)}
-              placeholder="Ex. Yesh's Space"
+              placeholder="Ex. Yesh Space"
+              className="w-[60%]"
             />
 
             {/* Buttons */}
