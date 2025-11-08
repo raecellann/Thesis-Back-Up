@@ -18,88 +18,105 @@ const Sidebar = () => {
   const [activeItem, setActiveItem] = useState(null);
 
   const menuItems = [
-    { icon: <Home size={22} />, label: "Home" },
-    { icon: <Users size={22} />, label: "Spaces" },
-    { icon: <Bell size={22} />, label: "Notifications" },
-    { icon: <Calendar size={22} />, label: "Tasks" },
-    { icon: <Folder size={22} />, label: "Files" },
+    { icon: <Home size={20} />, label: "Home" },
+    { icon: <Users size={20} />, label: "Spaces" },
+    { icon: <Bell size={20} />, label: "Notifications" },
+    { icon: <Calendar size={20} />, label: "Tasks" },
+    { icon: <Folder size={20} />, label: "Files" },
   ];
 
   return (
     <div
-      className="h-screen w-72 text-white flex flex-col p-5 font-inter"
+      className="h-screen w-60 text-white flex flex-col justify-between font-inter sticky top-0"
       style={{
         backgroundImage:
-          "linear-gradient(to right top, #4d9bef, #3d8ee8, #2c81e1, #1a73da, #0066d2)",
+          "linear-gradient(to bottom, #4d9bef, #3d8ee8, #2c81e1, #1a73da, #0066d2)",
       }}
     >
-      {/* Profile */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg">
-          R
-        </div>
-        <span className="font-semibold text-sm">Racell Ann</span>
-        <button className="ml-2 text-sm">✚</button>
-      </div>
-
-      {/* Menu */}
-      <nav className="flex-1 space-y-0.5">
-        {menuItems.map((item) => (
-          <SidebarItem
-            key={item.label}
-            icon={item.icon}
-            label={item.label}
-            isActive={activeItem === item.label}
-            onClick={() => setActiveItem(item.label)}
+      <style>{`
+        .sidebar-scroll::-webkit-scrollbar {
+          display: none;
+        }
+        .sidebar-scroll {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+      `}</style>
+      {/* Top Logo and Menu - Scrollable */}
+      <div className="flex-1 flex flex-col items-start p-5 overflow-y-auto sidebar-scroll">
+        <h1 className="font-bold text-lg flex items-center space-x-2 mb-6">
+          <img
+            src="src/assets/HomePage/logo.png"
+            alt="ImmacuLearn Logo"
+            className="w-5 h-5 inline-block"
           />
-        ))}
+          <span>ImmacuLearn</span>
+        </h1>
+
+        {/* Main Menu */}
+        <nav className="w-full space-y-1 mb-5">
+          {menuItems.map((item) => (
+            <SidebarItem
+              key={item.label}
+              icon={item.icon}
+              label={item.label}
+              isActive={activeItem === item.label}
+              onClick={() => setActiveItem(item.label)}
+            />
+          ))}
+        </nav>
 
         {/* Private Section */}
-        <div className="mt-5">
-          <p className="text-gray-200 text-[11px] uppercase mb-2 tracking-wide">
+        <div className="w-full border-t border-blue-300/40 pt-3 mb-5">
+          <p className="text-[11px] uppercase text-gray-100 tracking-wide mb-2 font-semibold">
             Private
           </p>
 
           <SidebarItem
-            icon={<ClipboardList size={22} />}
+            icon={<ClipboardList size={20} />}
             label="Grade Viewing"
             isActive={activeItem === "Grade Viewing"}
             onClick={() => setActiveItem("Grade Viewing")}
           />
-
-          {/* Chats below Grade Viewing */}
           <SidebarItem
-            icon={<MessageCircle size={22} />}
+            icon={<MessageCircle size={20} />}
             label="Chats"
             isActive={activeItem === "Chats"}
             onClick={() => setActiveItem("Chats")}
           />
         </div>
-      </nav>
 
-      {/* Footer */}
-      <div className="space-y-1 mt-auto pt-3 border-t border-blue-300/40">
-        <SidebarItem
-          icon={<User size={22} />}
-          label="Account"
-          isActive={activeItem === "Account"}
-          onClick={() => setActiveItem("Account")}
-        />
-        <SidebarItem
-          icon={<Settings size={22} />}
-          label="Settings"
-          isActive={activeItem === "Settings"}
-          onClick={() => setActiveItem("Settings")}
-        />
-
-        {/* Logout trigger */}
-        <div
-          onClick={() => setShowLogout(true)}
-          className="flex items-center space-x-3 px-5 py-3 rounded-md hover:bg-blue-700/40 cursor-pointer transition"
-        >
-          <LogOut size={22} />
-          <span className="text-sm font-medium">Log Out</span>
+        {/* Account Section */}
+        <div className="w-full border-t border-blue-300/40 pt-3 space-y-1">
+          <SidebarItem
+            icon={<User size={20} />}
+            label="Account"
+            isActive={activeItem === "Account"}
+            onClick={() => setActiveItem("Account")}
+          />
+          <SidebarItem
+            icon={<Settings size={20} />}
+            label="Settings"
+            isActive={activeItem === "Settings"}
+            onClick={() => setActiveItem("Settings")}
+          />
+          <SidebarItem
+            icon={<LogOut size={20} />}
+            label="Log Out Account"
+            isActive={activeItem === "Log Out Account"}
+            onClick={() => setShowLogout(true)}
+          />
         </div>
+      </div>
+
+      {/* Profile Account */}
+      <div className="p-4 border-t border-blue-300/40 flex items-center space-x-3 flex-shrink-0">
+        <img
+          src="/src/assets/HomePage/frieren-avatar.jpg"
+          alt="Profile"
+          className="w-9 h-9 rounded-full object-cover border border-white/20"
+        />
+        <span className="text-sm font-semibold">Raecell Ann Galvez</span>
       </div>
 
       {/* Logout Modal */}
@@ -111,17 +128,21 @@ const Sidebar = () => {
 const SidebarItem = ({ icon, label, isActive, onClick }) => (
   <div
     onClick={onClick}
-    className={`flex items-center space-x-3 px-5 py-2 cursor-pointer font-semibold transition-all duration-100 ${
-      isActive
-        ? "bg-black text-white rounded-full shadow-md w-full"
-        : "text-white hover:opacity-90"
+    className={`relative flex items-center space-x-3 px-5 py-2.5 text-sm font-medium cursor-pointer transition-all duration-150 rounded-md ${
+      isActive ? "text-white" : "text-white/90"
     }`}
-    style={{
-      minHeight: "20px",
-    }}
   >
-    {icon}
-    <span className="text-[13px]">{label}</span>
+    {/* Active Background */}
+    <div
+      className={`absolute left-3 top-0 bottom-0 w-[88%] rounded-full transition-all duration-200 ${
+        isActive ? "bg-black" : ""
+      }`}
+    ></div>
+
+    <div className="relative flex items-center space-x-3 z-10">
+      {icon}
+      <span>{label}</span>
+    </div>
   </div>
 );
 
