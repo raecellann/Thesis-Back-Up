@@ -14,12 +14,12 @@ const Button = ({
     color: "#fff",
     cursor: "pointer",
     border: "1px solid #007AFF",
-    borderRadius: "4px",
+    borderRadius: "20px",
     padding: "0.6em 1.8em",
     background: "#007AFF",
     transition: "all 0.2s ease-in-out",
     fontWeight: "600",
-    fontSize: "0.9rem",
+    fontSize: "0.8rem",
     ...style,
   };
 

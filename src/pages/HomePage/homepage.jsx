@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../component/sidebar";
 import Button from "../component/Button";
+import { BookOpen, User, GraduationCap, FileText, Calendar } from "lucide-react";
 
 const HomePage1 = () => {
   const [currentDate, setCurrentDate] = useState('');
@@ -8,6 +9,7 @@ const HomePage1 = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [today, setToday] = useState(new Date());
+  const [slideIndex, setSlideIndex] = useState(0);
 
   useEffect(() => {
     const now = new Date();
@@ -76,17 +78,48 @@ const HomePage1 = () => {
           <div className="mb-8">
             <div className="flex justify-between items-center mb-3">
               <h2 className="text-xl font-semibold">Your Space</h2>
-              <button className="text-[#007AFF] hover:underline text-sm">View All</button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setSlideIndex(Math.max(0, slideIndex - 1))}
+                  className="text-gray-400 hover:text-white text-sm px-2 py-1 rounded"
+                  disabled={slideIndex === 0}
+                >
+                  ‹
+                </button>
+                <button
+                  onClick={() => setSlideIndex(Math.min(2, slideIndex + 1))}
+                  className="text-gray-400 hover:text-white text-sm px-2 py-1 rounded"
+                  disabled={slideIndex === 2}
+                >
+                  ›
+                </button>
+                <button className="text-[#007AFF] hover:underline text-sm ml-2">View All</button>
+              </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
-              {["My Space Board", "Lectures", "Subject Grades"].map((title, i) => (
-                <div key={i} className="bg-[#1E242E] p-4 rounded-lg hover:bg-[#242B38] transition">
-                  <div className="h-28 bg-[#2E3440] rounded-lg mb-3"></div>
-                  <h3 className="font-medium">{title}</h3>
-                  <p className="text-gray-500 text-xs mt-1">Opened 1 min ago</p>
-                </div>
-              ))}
+            <div className="relative overflow-hidden" style={{ width: '632px' }}>
+              <div
+                className="flex gap-4 transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${slideIndex * 648}px)` }}
+              >
+                {[
+                  { title: "Lectures", time: "Opened 1 min ago", image: "/src/assets/HomePage/spaces-cover/lectures.jpg" },
+                  { title: "Todo-Lists", time: "Opened 5 mins ago", image: "/src/assets/HomePage/spaces-cover/space-board.jpg" },
+                  { title: "Subject Grades", time: "Opened 10 mins ago", image: "/src/assets/HomePage/spaces-cover/grades.jpg" },
+                  { title: "Notes", time: "Opened 20 mins ago", image: "/src/assets/HomePage/spaces-cover/cover1.jpg" },
+                  { title: "Projects", time: "Opened 30 mins ago", image: "/src/assets/HomePage/spaces-cover/cover2.jpg" }
+                ].map((space, i) => (
+                  <div key={i} className="bg-[#1E242E] p-4 rounded-lg hover:bg-[#242B38] transition min-w-[200px]">
+                    <img
+                      src={space.image}
+                      alt={space.title}
+                      className="h-28 w-full object-cover rounded-lg mb-3"
+                    />
+                    <h3 className="font-medium">{space.title}</h3>
+                    <p className="text-gray-500 text-xs mt-1">{space.time}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -98,10 +131,18 @@ const HomePage1 = () => {
             </div>
 
             <div className="grid grid-cols-3 gap-4">
-              {["Zi’s Space", "Nath’s Space", "Wilson’s Space"].map((title, i) => (
+              {[
+                { title: "Zj’s Space", image: "/src/assets/HomePage/spaces-cover/cover1.jpg" },
+                { title: "Nath’s Space", image: "/src/assets/HomePage/spaces-cover/cover2.jpg" },
+                { title: "Wilson’s Space", image: "/src/assets/HomePage/spaces-cover/cover3.jpg" }
+              ].map((space, i) => (
                 <div key={i} className="bg-[#1E242E] p-4 rounded-lg hover:bg-[#242B38] transition">
-                  <div className="h-28 bg-[#2E3440] rounded-lg mb-3"></div>
-                  <h3 className="font-medium">{title}</h3>
+                  <img
+                    src={space.image}
+                    alt={space.title}
+                    className="h-28 w-full object-cover rounded-lg mb-3"
+                  />
+                  <h3 className="font-medium">{space.title}</h3>
                   <p className="text-gray-500 text-xs mt-1">Opened 3 mins ago</p>
                 </div>
               ))}
@@ -122,100 +163,139 @@ const HomePage1 = () => {
         {/* RIGHT CONTENT */}
         <div className="w-80 bg-[#1E242E] rounded-xl p-6 flex flex-col justify-between">
           {/* Profile */}
-          <div className="flex flex-col items-center text-center mb-6">
-            <div className="w-20 h-20 rounded-full bg-[#2E3440] mb-3"></div>
+          <div className="flex flex-col items-center text-center mb-4">
+            <img
+              src="/src/assets/HomePage/frieren-avatar.jpg"
+              alt="Frieren Avatar"
+              className="w-20 h-20 rounded-full object-cover mb-3"
+            />
             <h3 className="text-lg font-semibold">Raecell Ann</h3>
             <p className="text-gray-400 text-sm">Student</p>
-            <button className="mt-3 bg-[#007AFF] hover:bg-[#0066D6] text-white text-sm px-3 py-1.5 rounded-md">
-              Edit Profile
-            </button>
+            <Button className="homepage-edit-button mt-2">Edit Profile</Button>
           </div>
 
-          {/* Calendar */}
-          <div className="bg-[#1E242E] mb-6">
-            <div className="flex justify-between items-center mb-3">
-              <h4 className="font-semibold">{new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' })} {currentYear}</h4>
-              <div className="flex gap-1">
-                <button
-                  onClick={() => {
-                    if (currentMonth === 0) {
-                      setCurrentMonth(11);
-                      setCurrentYear(currentYear - 1);
-                    } else {
-                      setCurrentMonth(currentMonth - 1);
-                    }
-                  }}
-                  className="text-gray-400 hover:text-white text-xs px-2 py-1 rounded"
-                >
-                  ‹
-                </button>
-                <button
-                  onClick={() => {
-                    if (currentMonth === 11) {
-                      setCurrentMonth(0);
-                      setCurrentYear(currentYear + 1);
-                    } else {
-                      setCurrentMonth(currentMonth + 1);
-                    }
-                  }}
-                  className="text-gray-400 hover:text-white text-xs px-2 py-1 rounded"
-                >
-                  ›
-                </button>
+          {/* Calendar and Reminders Group */}
+          <div className="flex flex-col">
+            {/* Calendar */}
+            <div className="bg-[#1E242E] mb-6">
+              <div className="flex justify-between items-center mb-3">
+                <h4 className="font-semibold">{new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' })} {currentYear}</h4>
+                <div className="flex gap-1">
+                  <button
+                    onClick={() => {
+                      if (currentMonth === 0) {
+                        setCurrentMonth(11);
+                        setCurrentYear(currentYear - 1);
+                      } else {
+                        setCurrentMonth(currentMonth - 1);
+                      }
+                    }}
+                    className="text-gray-400 hover:text-white text-xs px-2 py-1 rounded"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (currentMonth === 11) {
+                        setCurrentMonth(0);
+                        setCurrentYear(currentYear + 1);
+                      } else {
+                        setCurrentMonth(currentMonth + 1);
+                      }
+                    }}
+                    className="text-gray-400 hover:text-white text-xs px-2 py-1 rounded"
+                  >
+                    ›
+                  </button>
+                </div>
+              </div>
+              <div className="grid grid-cols-7 text-center gap-2 text-gray-400 text-xs">
+                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
+                  <span key={d}>{d}</span>
+                ))}
+                {(() => {
+                  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                  const todayDate = today.getDate();
+                  const todayMonth = today.getMonth();
+                  const todayYear = today.getFullYear();
+
+                  const days = [];
+                  // Add empty cells for days before the first day of the month
+                  for (let i = 0; i < (firstDay === 0 ? 6 : firstDay - 1); i++) {
+                    days.push(<span key={`empty-${i}`} className="p-1.5 rounded-md"></span>);
+                  }
+                  // Add days of the month
+                  for (let i = 1; i <= daysInMonth; i++) {
+                    const isToday = i === todayDate && currentMonth === todayMonth && currentYear === todayYear;
+                    days.push(
+                      <span
+                        key={i}
+                        className={`p-1.5 rounded-md cursor-pointer ${
+                          isToday ? "bg-[#007AFF] text-white" : "hover:bg-[#2E3440]"
+                        }`}
+                      >
+                        {i}
+                      </span>
+                    );
+                  }
+                  return days;
+                })()}
               </div>
             </div>
-            <div className="grid grid-cols-7 text-center gap-2 text-gray-400 text-xs">
-              {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
-                <span key={d}>{d}</span>
-              ))}
-              {(() => {
-                const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-                const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-                const todayDate = today.getDate();
-                const todayMonth = today.getMonth();
-                const todayYear = today.getFullYear();
 
-                const days = [];
-                // Add empty cells for days before the first day of the month
-                for (let i = 0; i < (firstDay === 0 ? 6 : firstDay - 1); i++) {
-                  days.push(<span key={`empty-${i}`} className="p-1.5 rounded-md"></span>);
-                }
-                // Add days of the month
-                for (let i = 1; i <= daysInMonth; i++) {
-                  const isToday = i === todayDate && currentMonth === todayMonth && currentYear === todayYear;
-                  days.push(
-                    <span
-                      key={i}
-                      className={`p-1.5 rounded-md cursor-pointer ${
-                        isToday ? "bg-[#007AFF] text-white" : "hover:bg-[#2E3440]"
-                      }`}
-                    >
-                      {i}
-                    </span>
-                  );
-                }
-                return days;
-              })()}
+            {/* Reminders */}
+            <div>
+              <h4 className="font-semibold mb-3">Reminders</h4>
+              <ul className="space-y-3 text-sm">
+                <li className="bg-[#2E3440] p-3 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <BookOpen className="text-blue-400 w-5 h-5" />
+                    <div>
+                      <p className="font-medium">Week 7 Reflection Paper</p>
+                      <p className="text-gray-400 text-xs">Operating System – Oct 15</p>
+                    </div>
+                  </div>
+                </li>
+                <li className="bg-[#2E3440] p-3 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <User className="text-green-400 w-5 h-5" />
+                    <div>
+                      <p className="font-medium">Week 8 Individual Activity</p>
+                      <p className="text-gray-400 text-xs">Data Communications – Oct 24</p>
+                    </div>
+                  </div>
+                </li>
+                <li className="bg-[#2E3440] p-3 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <GraduationCap className="text-orange-400 w-5 h-5" />
+                    <div>
+                      <p className="font-medium">Chapter 1 Thesis Paper</p>
+                      <p className="text-gray-400 text-xs">Thesis – Oct 28</p>
+                    </div>
+                  </div>
+                </li>
+                <li className="bg-[#2E3440] p-3 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <FileText className="text-purple-400 w-5 h-5" />
+                    <div>
+                      <p className="font-medium">Midterm Exam Review</p>
+                      <p className="text-gray-400 text-xs">Mathematics – Nov 5</p>
+                    </div>
+                  </div>
+                </li>
+                <li className="bg-[#2E3440] p-3 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <Calendar className="text-red-400 w-5 h-5" />
+                    <div>
+                      <p className="font-medium">Group Project Meeting</p>
+                      <p className="text-gray-400 text-xs">Software Engineering – Nov 10</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <button className="mt-4 text-[#007AFF] hover:underline text-sm">See All</button>
             </div>
-          </div>
-
-          {/* Reminders */}
-          <div>
-            <h4 className="font-semibold mb-3">Reminders</h4>
-            <ul className="space-y-3 text-sm">
-              <li className="bg-[#2E3440] p-3 rounded-lg">
-                <p className="font-medium">Week 7 Reflection Paper</p>
-                <p className="text-gray-400 text-xs">Operating System – Oct 15</p>
-              </li>
-              <li className="bg-[#2E3440] p-3 rounded-lg">
-                <p className="font-medium">Week 8 Individual Activity</p>
-                <p className="text-gray-400 text-xs">Data Communications – Oct 24</p>
-              </li>
-              <li className="bg-[#2E3440] p-3 rounded-lg">
-                <p className="font-medium">Chapter 1 Thesis Paper</p>
-                <p className="text-gray-400 text-xs">Thesis – Oct 28</p>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
