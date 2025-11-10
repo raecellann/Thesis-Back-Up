@@ -20,6 +20,7 @@ const InputField = ({
     outline: "none",
     transition: "box-shadow ease 0.25s",
     backgroundColor: "white",
+    color: "#000000", // Ensure text is visible
     ...style, // ✅ merge user-defined styles
   };
 

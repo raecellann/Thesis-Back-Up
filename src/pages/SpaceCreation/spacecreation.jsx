@@ -69,13 +69,15 @@ const SpaceCreationPage = () => {
             {/* Buttons */}
             <div className="flex gap-4 mt-4">
               <Button
-                onClick={() => setnext(true)}
+                onClick={() => window.location.href = "/initial-invite"}
                 style={{
                   background:
                     "linear-gradient(180deg, #3b82f6 0%, #2563eb 100%)",
                   borderRadius: "8px",
-                  padding: "0.75rem 1.5rem",
+                  padding: "0.50rem 1.5rem",
                     fontFamily: '"Darker Grotesque", sans-serif',
+                    fontSize: "1rem",
+
                 }}
               >
                 Next
@@ -87,8 +89,10 @@ const SpaceCreationPage = () => {
                   background: "#e5e7eb",
                   color: "#000",
                   borderRadius: "8px",
-                  padding: "0.75rem 1.5rem",
+                  padding: "0.50rem 1.5rem",
                     fontFamily: '"Darker Grotesque", sans-serif',
+                    fontSize: "1rem",
+
 
                 }}
               >
@@ -108,7 +112,7 @@ const SpaceCreationPage = () => {
             src="./src/assets/space-creation/right-image.png"
             alt="Laptop Preview"
             className="relative z-10 max-w-full"
-            style={{ width: "380px", height: "auto" }}
+            style={{ width: "420px", height: "auto" }}
           />
         </div>
       </main>

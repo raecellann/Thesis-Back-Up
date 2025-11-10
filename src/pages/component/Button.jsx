@@ -19,7 +19,6 @@ const Button = ({
     background: "#007AFF",
     transition: "all 0.2s ease-in-out",
     fontWeight: "600",
-    fontSize: "0.8rem",
     ...style,
   };
 
