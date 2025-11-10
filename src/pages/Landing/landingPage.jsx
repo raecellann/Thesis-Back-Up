@@ -49,6 +49,7 @@ const LandingPage = () => {
             background: "linear-gradient(180deg, #6366f1 0%, #4f46e5 100%)",
             borderRadius: "8px",
             width: "auto",
+            fontSize: "14px",
           }}
         >
           Log In
