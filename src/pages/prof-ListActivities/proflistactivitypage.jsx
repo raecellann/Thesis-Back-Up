@@ -72,16 +72,17 @@ const ProfListActivityPage = () => {
       {/* Main Content */}
       <div className="flex-1 p-10">
         {/* Header */}
-        <div className="flex justify-between items-center mb-10">
-          <h1 className="text-4xl font-bold text-center w-full">
-            List Of Activities
+        <div className="mb-10 relative">
+          {/* Centered Header */}
+          <h1 className="text-4xl font-bold text-center mb-3">
+            List of Activities
           </h1>
-          <div className="absolute right-12">
+          <div className="absolute right-7 top-full mt-4">
             <Button
               onClick={() => setShowModal(true)}
               style={{
-                padding: "0.5rem 1.5rem",
-                fontSize: "0.875rem",
+                padding: "0.35rem 1rem", 
+                fontSize: "0.8rem",
                 borderRadius: "0.375rem",
                 backgroundColor: "#3B82F6",
                 borderColor: "#3B82F6",
@@ -91,6 +92,7 @@ const ProfListActivityPage = () => {
             </Button>
           </div>
         </div>
+
 
         {/* Table */}
         <table className="w-full text-center border-collapse">

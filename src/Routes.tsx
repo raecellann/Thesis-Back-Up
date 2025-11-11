@@ -17,6 +17,8 @@ import SpacePage from "./pages/Space/SpacePage.jsx";
 import ProfProfilePage from "./pages/prof-AccSettings/profaccsettingspage.jsx";
 import ProfNotificationPage from "./pages/prof-Notifications/profnotification.jsx";
 import ProfListActivityPage from "./pages/prof-ListActivities/proflistactivitypage.jsx";
+import ProfLecturePage from "./pages/prof-Lectures/proflecture.jsx";
+import ProfGradeRecordPage from "./pages/prof-GradeViewing/profgradeviewing.jsx";
 
 export default function Routes() {
   return (
@@ -36,6 +38,8 @@ export default function Routes() {
       <Route path="/profaccsettings" element={<ProfProfilePage />} />
       <Route path="/profnotifications" element={<ProfNotificationPage />} />
       <Route path="/proflistactivity" element={<ProfListActivityPage />} />
+      <Route path="/proflectures" element={<ProfLecturePage />} />
+      <Route path="/profgradeviewing" element={<ProfGradeRecordPage />} />
 
     </ReactRoutes>
   );
