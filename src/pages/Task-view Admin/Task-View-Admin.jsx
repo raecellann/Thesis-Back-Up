@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../component/sidebar";
 import InputField from "@/pages/component/InputField";
-import { Edit } from "lucide-react";
+import { Edit, Check } from "lucide-react";
 
 const TaskViewPageAdmin = () => {
   const [spaceComment, setSpaceComment] = useState("");
@@ -11,9 +11,9 @@ const TaskViewPageAdmin = () => {
   const [showSendSpace, setShowSendSpace] = useState(false);
   const [showSendPrivate, setShowSendPrivate] = useState(false);
   const [taskTitle, setTaskTitle] = useState("Week 8 Individual Activity");
-  const [isEditingTitle, setIsEditingTitle] = useState(false);
-  const [grade, setGrade] = useState("15/20");
-  const [isEditingGrade, setIsEditingGrade] = useState(false);
+  const [dueDate, setDueDate] = useState("November 20, 2025");
+  const [grade, setGrade] = useState("20");
+  const [isEditingTask, setIsEditingTask] = useState(false);
 
   const handleSendSpaceComment = () => {
     console.log("Sending space comment:", spaceComment);
@@ -62,18 +62,17 @@ const TaskViewPageAdmin = () => {
           {/* Title + Edit Button */}
           <div className="mb-10">
             <div className="flex justify-between items-start w-full">
-              {/* Title / Input and Edit Button */}
+              {/* Title / Input */}
               <div>
-                {isEditingTitle ? (
+                {isEditingTask ? (
                   <input
                     type="text"
                     value={taskTitle}
                     onChange={(e) => setTaskTitle(e.target.value)}
-                    onBlur={() => setIsEditingTitle(false)}
-                    onKeyPress={(e) =>
-                      e.key === "Enter" && setIsEditingTitle(false)
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setIsEditingTask(false)
                     }
-                    className=" text-white px-2 py-1 rounded font-semibold font-inter"
+                    className="bg-[#2A2A2A] text-white px-2 py-1 rounded font-semibold font-inter"
                     autoFocus
                   />
                 ) : (
@@ -82,18 +81,21 @@ const TaskViewPageAdmin = () => {
                   </p>
                 )}
 
-                {/* Edit Button below title */}
-                <button
-                  onClick={() => setIsEditingTitle(!isEditingTitle)}
-                  className="text-xs cursor-pointer flex items-center gap-1 mt-1"
-                >
-                  <Edit className="w-3 h-3" />
-                  Edit task
-                </button>
-
-                <p className="text-sm opacity-70 mt-2 flex gap-10">
+                <p className="text-sm opacity-70 mt-2 flex gap-10 mt-4">
                   Due Date:{" "}
-                  <span className="opacity-100">November 20, 2025</span>
+                  {isEditingTask ? (
+                    <input
+                      type="text"
+                      value={dueDate}
+                      onChange={(e) => setDueDate(e.target.value)}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" && setIsEditingTask(false)
+                      }
+                      className="bg-[#2A2A2A] text-white px-2 py-1 rounded"
+                    />
+                  ) : (
+                    <span className="opacity-100">{dueDate}</span>
+                  )}
                 </p>
 
                 <p className="text-sm opacity-70 mt-2 flex gap-5">
@@ -102,31 +104,43 @@ const TaskViewPageAdmin = () => {
                 </p>
               </div>
 
-              {/* Grade on the right */}
+              {/* Grade Section */}
               <div className="text-right">
+                <div className="flex items-center gap-2 mb-2">
+                  <button
+                    onClick={() => setIsEditingTask(!isEditingTask)}
+                    className="text-xs cursor-pointer flex items-center gap-1"
+                  >
+                    <Edit className="w-3 h-3" />
+                    Edit task
+                  </button>
+                  {isEditingTask && (
+                    <button
+                      onClick={() => setIsEditingTask(false)}
+                      className="text-xs cursor-pointer flex items-center gap-1"
+                    >
+                      <Check className="w-3 h-3" />
+                      Done
+                    </button>
+                  )}
+                </div>
+
                 <p className="font-semibold">Grade:</p>
-                {isEditingGrade ? (
+
+                {isEditingTask ? (
                   <input
                     type="text"
                     value={grade}
                     onChange={(e) => setGrade(e.target.value)}
-                    onBlur={() => setIsEditingGrade(false)}
-                    onKeyPress={(e) =>
-                      e.key === "Enter" && setIsEditingGrade(false)
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && setIsEditingTask(false)
                     }
-                    className="bg-[#2A2A2A] text-white px-2 py-1 rounded text-2xl font-bold mt-2"
+                    className="bg-[#2A2A2A] text-white px-2 py-1 rounded text-2xl font-bold mt-2 w-16"
                     autoFocus
                   />
                 ) : (
                   <p className="text-2xl font-bold mt-2">{grade}</p>
                 )}
-                <button
-                  onClick={() => setIsEditingGrade(!isEditingGrade)}
-                  className="text-xs cursor-pointer flex items-center gap-1 mt-1"
-                >
-                  <Edit className="w-3 h-3" />
-                  Edit grade
-                </button>
               </div>
             </div>
           </div>
@@ -165,9 +179,12 @@ const TaskViewPageAdmin = () => {
 
               <div className="flex justify-between items-center">
                 <p className="font-inter opacity-70">+ 2 more</p>
-                <button className="bg-[#2A2A2A] px-4 py-2 rounded-lg text-sm cursor-pointer hover:bg-[#3A3A3A] opacity-70">
+                <a
+                  href="/task-view-all"
+                  className="bg-[#2A2A2A] px-4 py-2 rounded-lg text-sm cursor-pointer hover:bg-[#3A3A3A] opacity-70 inline-block"
+                >
                   see all works
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -177,7 +194,7 @@ const TaskViewPageAdmin = () => {
           <h3 className="font-semibold mb-4">Comments</h3>
 
           <div className="grid grid-cols-2 gap-6">
-            {/* Add Space Comment */}
+            {/* Space Comment */}
             <div className="p-4 rounded-xl">
               <p className="text-sm mb-2 opacity-70">Add space comment</p>
               <div className="relative">
@@ -214,7 +231,7 @@ const TaskViewPageAdmin = () => {
               </div>
             </div>
 
-            {/* Add Private Comment */}
+            {/* Private Comment */}
             <div className="p-4 rounded-xl">
               <p className="text-sm mb-2 opacity-70">Add private comment</p>
               <div className="relative">

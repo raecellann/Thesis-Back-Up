@@ -12,6 +12,8 @@ import {
   LogOut,
 } from "lucide-react";
 import Logout from "./logout";
+import logo from "../../assets/HomePage/logo.png";
+import frierenAvatar from "../../assets/HomePage/frieren-avatar.jpg";
 
 const Sidebar = () => {
   const [showLogout, setShowLogout] = useState(false);

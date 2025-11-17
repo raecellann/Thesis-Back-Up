@@ -15,6 +15,7 @@ import LecturesPage from "./pages/Lectures/lecture.jsx";
 import SpacePage from "./pages/Space/SpacePage.jsx";
 import TaskViewPage from "./pages/Task-View/TaskViewPage.jsx";
 import TaskViewPageAdmin from "./pages/Task-view Admin/Task-View-Admin.jsx";
+import TaskViewAll from "./pages/Task-view Admin/Task-View-All.jsx";
 
 import ProfProfilePage from "./pages/prof-AccSettings/profaccsettingspage.jsx";
 import ProfNotificationPage from "./pages/prof-Notifications/profnotification.jsx";
@@ -39,6 +40,7 @@ export default function Routes() {
       <Route path="/space" element={<SpacePage />} />
       <Route path="/task-view" element={<TaskViewPage />} />
       <Route path="/task-view-admin" element={<TaskViewPageAdmin />} />
+      <Route path="/task-view-all" element={<TaskViewAll />} />
       <Route path="/profaccsettings" element={<ProfProfilePage />} />
       <Route path="/profnotifications" element={<ProfNotificationPage />} />
       <Route path="/proflistactivity" element={<ProfListActivityPage />} />
