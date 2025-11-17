@@ -12,6 +12,8 @@ const TaskViewPageAdmin = () => {
   const [showSendPrivate, setShowSendPrivate] = useState(false);
   const [taskTitle, setTaskTitle] = useState("Week 8 Individual Activity");
   const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [grade, setGrade] = useState("15/20");
+  const [isEditingGrade, setIsEditingGrade] = useState(false);
 
   const handleSendSpaceComment = () => {
     console.log("Sending space comment:", spaceComment);
@@ -59,53 +61,73 @@ const TaskViewPageAdmin = () => {
 
           {/* Title + Edit Button */}
           <div className="mb-10">
-            <div>
-              <div className="flex justify-between items-start w-full">
-                {/* Title / Input */}
-                <div>
-                  {isEditingTitle ? (
-                    <input
-                      type="text"
-                      value={taskTitle}
-                      onChange={(e) => setTaskTitle(e.target.value)}
-                      onBlur={() => setIsEditingTitle(false)}
-                      onKeyPress={(e) =>
-                        e.key === "Enter" && setIsEditingTitle(false)
-                      }
-                      className="bg-[#2A2A2A] text-white px-2 py-1 rounded text-3xl font-semibold font-inter"
-                      autoFocus
-                    />
-                  ) : (
-                    <p className="font-semibold font-inter text-3xl">
-                      {taskTitle}
-                    </p>
-                  )}
-
-                  <p className="text-sm opacity-70 mt-2 flex gap-10">
-                    Due Date:{" "}
-                    <span className="opacity-100">November 20, 2025</span>
+            <div className="flex justify-between items-start w-full">
+              {/* Title / Input and Edit Button */}
+              <div>
+                {isEditingTitle ? (
+                  <input
+                    type="text"
+                    value={taskTitle}
+                    onChange={(e) => setTaskTitle(e.target.value)}
+                    onBlur={() => setIsEditingTitle(false)}
+                    onKeyPress={(e) =>
+                      e.key === "Enter" && setIsEditingTitle(false)
+                    }
+                    className=" text-white px-2 py-1 rounded font-semibold font-inter"
+                    autoFocus
+                  />
+                ) : (
+                  <p className="font-semibold font-inter text-3xl">
+                    {taskTitle}
                   </p>
+                )}
 
-                  <p className="text-sm opacity-70 mt-2 flex gap-5">
-                    Assigned By:{" "}
-                    <span className="opacity-100">Zeldrick Delos Santos</span>
-                  </p>
-                </div>
-
-                {/* Edit Button */}
+                {/* Edit Button below title */}
                 <button
                   onClick={() => setIsEditingTitle(!isEditingTitle)}
-                  className="bg-[#2A2A2A] px-3 py-2 rounded-lg text-sm cursor-pointer hover:bg-[#3A3A3A] flex items-center gap-2 h-fit ml-4"
+                  className="text-xs cursor-pointer flex items-center gap-1 mt-1"
                 >
-                  <Edit className="w-4 h-4" />
+                  <Edit className="w-3 h-3" />
                   Edit task
                 </button>
-              </div>
-            </div>
 
-            <div className="text-right">
-              <p className="font-semibold">Grade:</p>
-              <p className="text-2xl font-bold mt-2">15/20</p>
+                <p className="text-sm opacity-70 mt-2 flex gap-10">
+                  Due Date:{" "}
+                  <span className="opacity-100">November 20, 2025</span>
+                </p>
+
+                <p className="text-sm opacity-70 mt-2 flex gap-5">
+                  Assigned By:{" "}
+                  <span className="opacity-100">Zeldrick Delos Santos</span>
+                </p>
+              </div>
+
+              {/* Grade on the right */}
+              <div className="text-right">
+                <p className="font-semibold">Grade:</p>
+                {isEditingGrade ? (
+                  <input
+                    type="text"
+                    value={grade}
+                    onChange={(e) => setGrade(e.target.value)}
+                    onBlur={() => setIsEditingGrade(false)}
+                    onKeyPress={(e) =>
+                      e.key === "Enter" && setIsEditingGrade(false)
+                    }
+                    className="bg-[#2A2A2A] text-white px-2 py-1 rounded text-2xl font-bold mt-2"
+                    autoFocus
+                  />
+                ) : (
+                  <p className="text-2xl font-bold mt-2">{grade}</p>
+                )}
+                <button
+                  onClick={() => setIsEditingGrade(!isEditingGrade)}
+                  className="text-xs cursor-pointer flex items-center gap-1 mt-1"
+                >
+                  <Edit className="w-3 h-3" />
+                  Edit grade
+                </button>
+              </div>
             </div>
           </div>
 
@@ -222,7 +244,7 @@ const TaskViewPageAdmin = () => {
                 {showSendPrivate && (
                   <button
                     onClick={handleSendPrivateComment}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-100 text-blue px-2 py-1 rounded text-sm flex items-center gap-1"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-100 text-black px-2 py-1 rounded text-sm flex items-center gap-1"
                   >
                     <span>&rarr;</span> Send
                   </button>
