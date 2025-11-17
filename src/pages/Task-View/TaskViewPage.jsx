@@ -132,18 +132,17 @@ const TaskViewPage = () => {
                     setShowSendSpace(e.target.value.length > 0);
                   }}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendSpaceComment()}
-                  style={{ fontSize: '0.875rem', paddingLeft: '3rem', paddingRight: '4rem' }}
+                  style={{ fontSize: '0.875rem', paddingLeft: '3rem', paddingRight: '4rem', width: "100%" }}
                 />
                 {showSendSpace && (
                   <button
                     onClick={handleSendSpaceComment}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-sm flex items-center gap-1"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-100 text-black px-2 py-1 rounded text-sm flex items-center gap-1"
                   >
                     <span>&rarr;</span> Send
                   </button>
                 )}
               </div>
-              <p className="text-xs opacity-50 mt-1">Press Enter or click Send to post</p>
             </div>
 
             {/* Add Private Comment */}
@@ -159,18 +158,17 @@ const TaskViewPage = () => {
                     setShowSendPrivate(e.target.value.length > 0);
                   }}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendPrivateComment()}
-                  style={{ fontSize: '0.875rem', paddingLeft: '3rem', paddingRight: '4rem' }}
+                  style={{ fontSize: '0.875rem', paddingLeft: '3rem', paddingRight: '4rem', width: "100%" }}
                 />
                 {showSendPrivate && (
                   <button
                     onClick={handleSendPrivateComment}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-sm flex items-center gap-1"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-100 text-black px-2 py-1 rounded text-sm flex items-center gap-1"
                   >
                     <span>&rarr;</span> Send
                   </button>
                 )}
               </div>
-              <p className="text-xs opacity-50 mt-1">Press Enter or click Send to post</p>
               <p className="text-xs opacity-50 mt-1">
                 Private comments are only visible to you and your admin
               </p>
