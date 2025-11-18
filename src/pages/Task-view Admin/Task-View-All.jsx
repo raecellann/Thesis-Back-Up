@@ -85,7 +85,7 @@ const TaskViewAll = () => {
           {members.map((member, index) => (
             <div
               key={index}
-              className="grid grid-cols-4 py-3 border-b border-gray-800 text-sm"
+              className="grid grid-cols-4 mb-4 border-b border-gray-800 text-sm"
             >
               <p>{member.name}</p>
               <p>{member.file}</p>

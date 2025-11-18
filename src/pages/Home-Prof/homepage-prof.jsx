@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../component/sidebar";
+import ProfSidebar from "../component/profsidebar";
 import Button from "../component/Button";
 import { BookOpen, User, GraduationCap, FileText, Calendar } from "lucide-react";
 
-const HomePage1 = () => {
+const HomePageProf = () => {
   const [currentDate, setCurrentDate] = useState('');
   const [greeting, setGreeting] = useState('');
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -11,7 +11,6 @@ const HomePage1 = () => {
   const [today, setToday] = useState(new Date());
   const [slideIndexYourSpace, setSlideIndexYourSpace] = useState(0);
   const [slideIndexSpaces, setSlideIndexSpaces] = useState(0);
-  const [hoveredCard, setHoveredCard] = useState(null);
   const [showMenu, setShowMenu] = useState(null);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const HomePage1 = () => {
   return (
     <div className="flex font-sans min-h-screen bg-[#161A20] text-white">
       {/* Sidebar */}
-      <Sidebar />
+      <ProfSidebar />
 
       {/* Main Content */}
       <div className="flex-1 flex p-8 gap-6">
@@ -54,13 +53,13 @@ const HomePage1 = () => {
             <div className="flex justify-between items-center">
               <div>
                 <h1 className="text-lg font-semibold text-[#B0C4FF] mb-1">
-                  {greeting}, Raecell
+                  {greeting}, Jober Reyes
                 </h1>
                 <p className="text-gray-400 text-sm">
-                  Meet your classmates and collaborate with them.
+                  Manage your classes and collaborate with students.
                 </p>
                 <p className="text-gray-400 text-sm">
-                  Join space or create your own.
+                  Create spaces or join existing ones.
                 </p>
                 <div className="flex gap-3 mt-4">
                   <Button>Create Space</Button>
@@ -156,20 +155,23 @@ const HomePage1 = () => {
               >
                 {[
                 {
-                    title: "Zeldrick's Spaces",
-                    members: "3 Members",
+                    title: "Thesis and Research",
+                    students: "36 Students",
+                    section: "BSCS - 4A",
                     time: "Opened just now",
                     image: "/src/assets/HomePage/spaces-cover/cover1.jpg",
                 },
                 {
-                    title: "Wilson Space",
-                    members: "4 Members",
+                    title: "Operating System",
+                    students: "36 Students",
+                    section: "BSCS - 3A",
                     time: "Opened 1 min ago",
                     image: "/src/assets/HomePage/spaces-cover/cover2.jpg",
                 },
                 {
-                    title: "Nath Space",
-                    members: "5 Members",
+                    title: "BUSINTEG",
+                    students: "36 Students",
+                    section: "BSCS - 3A",
                     time: "Opened 5 min ago",
                     image: "/src/assets/HomePage/spaces-cover/cover3.jpg",
                 },
@@ -201,7 +203,7 @@ const HomePage1 = () => {
                             View Details
                           </button>
                           <button className="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-[#3E4450]">
-                            Leave Space
+                            Delete Space
                           </button>
                         </div>
                       )}
@@ -211,7 +213,8 @@ const HomePage1 = () => {
                     {/* Details */}
                     <div className="p-4">
                     <h3 className="font-medium text-sm">{space.title}</h3>
-                    <p className="text-gray-400 text-xs mt-1">{space.members}</p>
+                    <p className="text-gray-400 text-xs mt-1">{space.students}</p>
+                    <p className="text-gray-400 text-xs">{space.section}</p>
                     <p className="text-gray-500 text-xs mt-1">{space.time}</p>
                     </div>
                 </div>
@@ -237,12 +240,12 @@ const HomePage1 = () => {
           {/* Profile */}
           <div className="flex flex-col items-center text-center mb-4">
             <img
-              src="/src/assets/HomePage/frieren-avatar.jpg"
-              alt="Frieren Avatar"
+              src="/src/assets/HomePage-prof/prof-avatar.jpg"
+              alt="Prof Avatar"
               className="w-20 h-20 rounded-full object-cover mb-3"
             />
-            <h3 className="text-lg font-semibold">Raecell Ann</h3>
-            <p className="text-gray-400 text-sm">Student</p>
+            <h3 className="text-lg font-semibold">Jober Reyes</h3>
+            <p className="text-gray-400 text-sm">Teacher</p>
             <Button className="homepage-edit-button mt-2">Edit Profile</Button>
           </div>
 
@@ -318,7 +321,7 @@ const HomePage1 = () => {
 
             {/* Reminders */}
             <div>
-              <h4 className="font-semibold mb-3">Reminders</h4>
+              <h4 className="font-semibold mb-3">Task Deployed:</h4>
               <ul className="space-y-3 text-sm">
                 <li className="bg-[#2E3440] p-3 rounded-lg">
                   <div className="flex items-center gap-3">
@@ -375,4 +378,4 @@ const HomePage1 = () => {
   );
 };
 
-export default HomePage1;
+export default HomePageProf;

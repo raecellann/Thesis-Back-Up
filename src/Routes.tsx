@@ -22,6 +22,7 @@ import ProfNotificationPage from "./pages/prof-Notifications/profnotification.js
 import ProfListActivityPage from "./pages/prof-ListActivities/proflistactivitypage.jsx";
 import ProfLecturePage from "./pages/prof-Lectures/proflecture.jsx";
 import ProfGradeRecordPage from "./pages/prof-GradeViewing/profgradeviewing.jsx";
+import HomePageProf from "./pages/Home-Prof/homepage-prof.jsx";
 
 export default function Routes() {
   return (
@@ -46,6 +47,7 @@ export default function Routes() {
       <Route path="/proflistactivity" element={<ProfListActivityPage />} />
       <Route path="/proflectures" element={<ProfLecturePage />} />
       <Route path="/profgradeviewing" element={<ProfGradeRecordPage />} />
+      <Route path="/home-prof" element={<HomePageProf />} />
 
     </ReactRoutes>
   );

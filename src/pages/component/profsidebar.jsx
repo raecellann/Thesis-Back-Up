@@ -128,7 +128,7 @@ const Sidebar = () => {
 const SidebarItem = ({ icon, label, isActive, onClick }) => (
   <div
     onClick={onClick}
-    className={`relative flex items-center space-x-3 px-5 py-2.5 text-sm font-medium cursor-pointer transition-all duration-150 rounded-md ${
+    className={`relative flex items-center space-x-3 px-5 py-2.5 text-xs font-medium cursor-pointer transition-all duration-150 rounded-md ${
       isActive ? "text-white" : "text-white/90"
     }`}
   >
