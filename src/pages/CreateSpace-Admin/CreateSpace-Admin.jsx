@@ -11,8 +11,12 @@ const CreateSpaceAdmin = () => {
   const [people, setPeople] = useState(Array(5).fill(""));
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCoverModalOpen, setIsCoverModalOpen] = useState(false);
+
+  // Cover image state
   const [coverImage, setCoverImage] = useState("/src/assets/HomePage/spaces-cover/cover1.jpg");
   const [uploadedImage, setUploadedImage] = useState(null);
+
+  // Cropper states
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -20,7 +24,6 @@ const CreateSpaceAdmin = () => {
 
   const memberOptions = [2, 4, 5, 6, 7, 8, 9, 10];
 
-  // 💠 Sample color gradients
   const colorOptions = [
     "linear-gradient(45deg, #FFC107, #FF5722)",
     "linear-gradient(45deg, #3F51B5, #2196F3)",
@@ -32,7 +35,6 @@ const CreateSpaceAdmin = () => {
     "linear-gradient(45deg, #795548, #607D8B)",
   ];
 
-  // 💠 Sample gallery images
   const galleryImages = [
     "/src/assets/HomePage/spaces-cover/cover1.jpg",
     "/src/assets/HomePage/spaces-cover/cover2.jpg",
@@ -67,17 +69,17 @@ const CreateSpaceAdmin = () => {
 
     const url = URL.createObjectURL(file);
     setUploadedImage(url);
-    setIsCoverModalOpen(false);
     setIsCropping(true);
   };
 
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    setCroppedAreaPixels(croppedAreaPixels);
+  const onCropComplete = useCallback((_, croppedPixels) => {
+    setCroppedAreaPixels(croppedPixels);
   }, []);
 
   const createCroppedImage = async (imageSrc, croppedAreaPixels) => {
     const image = new Image();
     image.src = imageSrc;
+
     return new Promise((resolve) => {
       image.onload = () => {
         const canvas = document.createElement("canvas");
@@ -123,8 +125,75 @@ const CreateSpaceAdmin = () => {
       <div className="flex-1 px-20 py-10 overflow-y-auto">
         <h1 className="text-2xl font-bold text-center mb-6">Create New Space, Here!</h1>
 
-        <div className="bg-[#2A2A2A] rounded-xl p-6 w-[100%] mx-auto">
-          {/* Cover Image */}
+        <div className="bg-[#2A2A2A] rounded-xl p-6 w-full mx-auto">
+
+          {/* 🔵 TWITTER-STYLE CROP MODAL */}
+          {isCropping && (
+            <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+              <div className="bg-[#1E1E1E] rounded-xl p-4 w-[90%] max-w-4xl relative">
+
+                {/* Close btn */}
+                <button
+                  className="absolute top-3 right-3 bg-black/60 p-1 rounded-full"
+                  onClick={() => {
+                    setIsCropping(false);
+                    setUploadedImage(null);
+                  }}
+                >
+                  <X size={20} className="text-white" />
+                </button>
+
+                {/* Cropper area */}
+                <div className="relative w-full h-[350px] md:h-[420px] rounded-lg overflow-hidden bg-black">
+                  <Cropper
+                    image={uploadedImage}
+                    crop={crop}
+                    zoom={zoom}
+                    onCropChange={setCrop}
+                    onCropComplete={onCropComplete}
+                    onZoomChange={setZoom}
+                    zoomWithScroll={true}
+                    showGrid={false}
+                  />
+                </div>
+
+                {/* Zoom slider */}
+                <div className="flex items-center justify-center mt-4">
+                  <input
+                    type="range"
+                    min={1}
+                    max={3}
+                    step={0.01}
+                    value={zoom}
+                    onChange={(e) => setZoom(e.target.value)}
+                    className="w-1/2"
+                  />
+                </div>
+
+                {/* Buttons */}
+                <div className="flex justify-end mt-5 gap-2">
+                  <button
+                    className="px-4 py-2 text-sm bg-[#444] rounded-lg hover:bg-[#555]"
+                    onClick={() => {
+                      setIsCropping(false);
+                      setUploadedImage(null);
+                    }}
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    className="px-4 py-2 text-sm bg-[#007AFF] rounded-lg hover:bg-[#1A73E8]"
+                    onClick={handleCropSave}
+                  >
+                    Apply
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Normal Cover Image */}
           <div className="relative">
             <img
               src={coverImage}
@@ -132,6 +201,7 @@ const CreateSpaceAdmin = () => {
               className="w-full h-40 object-cover rounded-lg"
               style={{ background: coverImage.includes("gradient") ? coverImage : "" }}
             />
+
             <div className="absolute top-2 right-3 flex space-x-2 text-xs">
               <button
                 className="text-white bg-black/50 px-2 py-1 rounded"
@@ -139,6 +209,19 @@ const CreateSpaceAdmin = () => {
               >
                 Change Cover
               </button>
+
+              {!coverImage.includes("gradient") && coverImage && (
+                <button
+                  className="text-white bg-black/50 px-2 py-1 rounded"
+                  onClick={() => {
+                    setUploadedImage(coverImage);
+                    setIsCropping(true);
+                  }}
+                >
+                  Crop
+                </button>
+              )}
+
               <button
                 className="text-white bg-black/50 px-2 py-1 rounded"
                 onClick={() => setCoverImage("")}
@@ -148,7 +231,7 @@ const CreateSpaceAdmin = () => {
             </div>
           </div>
 
-          {/* Modal for Change Cover */}
+          {/* Cover Modal */}
           {isCoverModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
               <div className="bg-[#2A2A2A] rounded-lg p-6 w-[600px] relative">
@@ -159,39 +242,35 @@ const CreateSpaceAdmin = () => {
                 <h3 className="text-lg font-semibold mb-4">Edit Cover Photo</h3>
 
                 {/* Color Gradient */}
-                <div>
-                  <p className="text-sm mb-2">Color & Gradient</p>
-                  <div className="grid grid-cols-4 gap-2 mb-4">
-                    {colorOptions.map((color, i) => (
-                      <div
-                        key={i}
-                        className="h-12 rounded cursor-pointer"
-                        style={{ background: color }}
-                        onClick={() => {
-                          setCoverImage(color);
-                          setIsCoverModalOpen(false);
-                        }}
-                      ></div>
-                    ))}
-                  </div>
+                <p className="text-sm mb-2">Color & Gradient</p>
+                <div className="grid grid-cols-4 gap-2 mb-4">
+                  {colorOptions.map((color, i) => (
+                    <div
+                      key={i}
+                      className="h-12 rounded cursor-pointer"
+                      style={{ background: color }}
+                      onClick={() => {
+                        setCoverImage(color);
+                        setIsCoverModalOpen(false);
+                      }}
+                    ></div>
+                  ))}
                 </div>
 
                 {/* Gallery */}
-                <div>
-                  <p className="text-sm mb-2">Gallery</p>
-                  <div className="grid grid-cols-3 gap-2 mb-4">
-                    {galleryImages.map((img, i) => (
-                      <img
-                        key={i}
-                        src={img}
-                        className="h-16 w-full object-cover rounded cursor-pointer"
-                        onClick={() => {
-                          setCoverImage(img);
-                          setIsCoverModalOpen(false);
-                        }}
-                      />
-                    ))}
-                  </div>
+                <p className="text-sm mb-2">Gallery</p>
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  {galleryImages.map((img, i) => (
+                    <img
+                      key={i}
+                      src={img}
+                      className="h-16 w-full object-cover rounded cursor-pointer"
+                      onClick={() => {
+                        setCoverImage(img);
+                        setIsCoverModalOpen(false);
+                      }}
+                    />
+                  ))}
                 </div>
 
                 {/* Upload */}
@@ -202,52 +281,6 @@ const CreateSpaceAdmin = () => {
                   onChange={handleUpload}
                   className="w-full bg-[#1E1E1E] text-sm p-2 rounded"
                 />
-              </div>
-            </div>
-          )}
-
-          {/* Cropping Modal */}
-          {isCropping && uploadedImage && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
-              <div className="bg-[#2A2A2A] rounded-lg p-6 w-[500px] relative">
-                <button
-                  className="absolute top-2 right-2"
-                  onClick={() => {
-                    setIsCropping(false);
-                    setUploadedImage(null);
-                  }}
-                >
-                  <X size={20} />
-                </button>
-                <h4 className="text-lg font-semibold mb-4">Crop Your Image</h4>
-                <div className="relative h-64 mb-4">
-                  <Cropper
-                    image={uploadedImage}
-                    crop={crop}
-                    zoom={zoom}
-                    aspect={16 / 9}
-                    onCropChange={setCrop}
-                    onCropComplete={onCropComplete}
-                    onZoomChange={setZoom}
-                  />
-                </div>
-                <div className="flex justify-end gap-3">
-                  <button
-                    className="bg-[#3E3E3E] px-4 py-2 rounded-lg hover:bg-[#4A4A4A]"
-                    onClick={() => {
-                      setIsCropping(false);
-                      setUploadedImage(null);
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="bg-[#007AFF] px-4 py-2 rounded-lg hover:bg-[#2563eb]"
-                    onClick={handleCropSave}
-                  >
-                    Crop & Save
-                  </button>
-                </div>
               </div>
             </div>
           )}
@@ -273,6 +306,7 @@ const CreateSpaceAdmin = () => {
                 <span>({numMembers})</span>
                 <ChevronDown size={18} />
               </div>
+
               {isDropdownOpen && (
                 <div className="absolute bg-[#1E1E1E] mt-1 rounded-lg max-h-40 overflow-auto z-10">
                   {memberOptions.map((option) => (
@@ -316,10 +350,12 @@ const CreateSpaceAdmin = () => {
             <button className="bg-[#3E3E3E] px-6 py-2 rounded-lg hover:bg-[#4A4A4A] text-xs ">
               Cancel
             </button>
+
             <Button onClick={handleCreateSpace} className="bg-[#007AFF] hover:bg-[#2563eb] text-xs">
               Save Space
             </Button>
           </div>
+
         </div>
       </div>
     </div>
