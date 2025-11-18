@@ -32,23 +32,27 @@ const TaskPage = () => {
               <tbody>
                 {/* Task 1 */}
                 <tr className="border-b border-gray-700 hover:bg-[#1E222A] transition">
-                  <td className="py-3 px-4">
-                    <input type="checkbox" className="accent-blue-500 w-4 h-4" />
+                  <td className="py-3 px-4 text-blue-400">
+                    Ongoing
                   </td>
-                  <td className="py-3 px-4 flex items-center gap-2">
-                    Thesis Paper 🧑‍🎓
+                  <td className="py-3 px-4">
+                    <a href="/task-view" className="text-blue-400 hover:text-blue-300 hover:underline flex items-center gap-2">
+                      Thesis Paper 🧑‍🎓
+                    </a>
                   </td>
                   <td className="py-3 px-4">April 12, 2025</td>
-                  <td className="py-3 px-4">Zeldrick’s Space</td>
+                  <td className="py-3 px-4">Zeldrick's Space</td>
                 </tr>
 
                 {/* Task 2 */}
                 <tr className="border-b border-gray-700 hover:bg-[#1E222A] transition">
-                  <td className="py-3 px-4">
-                    <input type="checkbox" className="accent-blue-500 w-4 h-4" />
+                  <td className="py-3 px-4 text-green-400">
+                    Done
                   </td>
-                  <td className="py-3 px-4 flex items-center gap-2">
-                    OS Activity 🎓
+                  <td className="py-3 px-4">
+                    <a href="/task-view" className="text-blue-400 hover:text-blue-300 hover:underline flex items-center gap-2">
+                      OS Activity 🎓
+                    </a>
                   </td>
                   <td className="py-3 px-4">April 12, 2025</td>
                   <td className="py-3 px-4">Your Space</td>
@@ -56,14 +60,16 @@ const TaskPage = () => {
 
                 {/* Task 3 */}
                 <tr className="border-b border-gray-700 hover:bg-[#1E222A] transition">
-                  <td className="py-3 px-4">
-                    <input type="checkbox" className="accent-blue-500 w-4 h-4" />
+                  <td className="py-3 px-4 text-yellow-400">
+                    Pending
                   </td>
-                  <td className="py-3 px-4 flex items-center gap-2">
-                    Personal Reflection 📄
+                  <td className="py-3 px-4">
+                    <a href="/task-view" className="text-blue-400 hover:text-blue-300 hover:underline flex items-center gap-2">
+                      Personal Reflection 📄
+                    </a>
                   </td>
                   <td className="py-3 px-4">April 12, 2025</td>
-                  <td className="py-3 px-4">Nathaniel’s Space</td>
+                  <td className="py-3 px-4">Nathaniel's Space</td>
                 </tr>
               </tbody>
             </table>

@@ -11,11 +11,13 @@ import ProfilePage from "./pages/AccSettings/accsettingspage.jsx";
 import GradeViewing from "./pages/GradeViewing/gradeViewing.jsx";
 import TaskPage from "./pages/Task/task.jsx";
 import NotificationPage from "./pages/Notifications/notification.jsx";
-import LecturesPage from "./pages/Lectures/lecture.jsx";
+import FilePage from "./pages/Files/files.jsx";
 import SpacePage from "./pages/Space/SpacePage.jsx";
+import SettingsPage from "./pages/Settings/settings.jsx";
 import TaskViewPage from "./pages/Task-View/TaskViewPage.jsx";
 import TaskViewPageAdmin from "./pages/Task-view Admin/Task-View-Admin.jsx";
 import TaskViewAll from "./pages/Task-view Admin/Task-View-All.jsx";
+import ViewFilePage from "./pages/ViewFiles/ViewFiles.jsx";
 
 import ProfProfilePage from "./pages/prof-AccSettings/profaccsettingspage.jsx";
 import ProfNotificationPage from "./pages/prof-Notifications/profnotification.jsx";
@@ -39,15 +41,18 @@ export default function Routes() {
       <Route path="/grade-viewing" element={<GradeViewing />} />
       <Route path="/task" element={<TaskPage />} />
       <Route path="/notifications" element={<NotificationPage />} />
-      <Route path="/lectures" element={<LecturesPage />} />
+      <Route path="/files" element={<FilePage />} />
+      <Route path="/view-files" element={<ViewFilePage/>} />
       <Route path="/space" element={<SpacePage />} />
+      <Route path="/settings" element={<SettingsPage />} />
+
       <Route path="/task-view" element={<TaskViewPage />} />
       <Route path="/task-view-admin" element={<TaskViewPageAdmin />} />
       <Route path="/task-view-all" element={<TaskViewAll />} />
       <Route path="/prof-acc-settings" element={<ProfProfilePage />} />
       <Route path="/prof-notifications" element={<ProfNotificationPage />} />
       <Route path="/prof-list-activity" element={<ProfListActivityPage />} />
-      <Route path="/prof-file" element={<ProfFilePage />} />
+      <Route path="/prof-files" element={<ProfFilePage />} />
       <Route path="/prof-grade-viewing" element={<ProfGradeRecordPage />} />
       <Route path="/prof-home" element={<ProfHomePage />} />
 
