@@ -25,6 +25,7 @@ import ProfListActivityPage from "./pages/prof-ListActivities/proflistactivitypa
 import ProfFilePage from "./pages/prof-Files/proffiles.jsx";
 import ProfGradeRecordPage from "./pages/prof-GradeViewing/profgradeviewing.jsx";
 import ProfHomePage from "./pages/prof-HomePage/profhomepage.jsx";
+import ProfSettingsPage from "./pages/Prof-Settings/profsettings.jsx";
 import CreateSpaceAdmin from "./pages/CreateSpace-Admin/CreateSpace-Admin.jsx";
 
 export default function Routes() {
@@ -55,6 +56,7 @@ export default function Routes() {
       <Route path="/prof-files" element={<ProfFilePage />} />
       <Route path="/prof-grade-viewing" element={<ProfGradeRecordPage />} />
       <Route path="/prof-home" element={<ProfHomePage />} />
+      <Route path="/prof-settings" element={<ProfSettingsPage />} />
 
     </ReactRoutes>
   );
