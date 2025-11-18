@@ -23,14 +23,16 @@ import ProfListActivityPage from "./pages/prof-ListActivities/proflistactivitypa
 import ProfLecturePage from "./pages/prof-Lectures/proflecture.jsx";
 import ProfGradeRecordPage from "./pages/prof-GradeViewing/profgradeviewing.jsx";
 import HomePageProf from "./pages/Home-Prof/homepage-prof.jsx";
+import CreateSpaceAdmin from "./pages/CreateSpace-Admin/CreateSpace-Admin.jsx";
 
 export default function Routes() {
   return (
     <ReactRoutes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/chatlist" element={<ChatList />} />
-      <Route path="/login" element={<LoginPage />} /> 
+      <Route path="/login" element={<LoginPage />} />
       <Route path="/create-space" element={<SpaceCreationPage />} />
+      <Route path="/create-space-admin" element={<CreateSpaceAdmin />} />
       <Route path="/initial-invite" element={<InitialInvitePage />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/accsettings" element={<ProfilePage />} />
