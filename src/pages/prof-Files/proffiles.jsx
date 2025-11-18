@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "../component/profsidebar";
 import Button from "../component/Button";
 
-const ProfLecturePage = () => {
+const ProfFilePage = () => {
   const [showModal, setShowModal] = useState(false);
 
   const files = [
@@ -150,4 +150,4 @@ const ProfLecturePage = () => {
   );
 };
 
-export default ProfLecturePage;
+export default ProfFilePage;
