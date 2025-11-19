@@ -23,6 +23,7 @@ import ProfProfilePage from "./pages/prof-AccSettings/profaccsettingspage.jsx";
 import ProfNotificationPage from "./pages/prof-Notifications/profnotification.jsx";
 import ProfListActivityPage from "./pages/prof-ListActivities/proflistactivitypage.jsx";
 import ProfFilePage from "./pages/prof-Files/proffiles.jsx";
+import ProfFilesBySubject from "./pages/prof-Files/ProfFilesBySubject";
 import ProfGradeRecordPage from "./pages/prof-GradeViewing/profgradeviewing.jsx";
 import ProfHomePage from "./pages/prof-HomePage/profhomepage.jsx";
 import ProfSettingsPage from "./pages/Prof-Settings/profsettings.jsx";
@@ -50,10 +51,12 @@ export default function Routes() {
       <Route path="/task-view" element={<TaskViewPage />} />
       <Route path="/task-view-admin" element={<TaskViewPageAdmin />} />
       <Route path="/task-view-all" element={<TaskViewAll />} />
+
       <Route path="/prof-acc-settings" element={<ProfProfilePage />} />
       <Route path="/prof-notifications" element={<ProfNotificationPage />} />
       <Route path="/prof-list-activity" element={<ProfListActivityPage />} />
       <Route path="/prof-files" element={<ProfFilePage />} />
+      <Route path="/prof-files-by-subject" element={<ProfFilesBySubject />} />
       <Route path="/prof-grade-viewing" element={<ProfGradeRecordPage />} />
       <Route path="/prof-home" element={<ProfHomePage />} />
       <Route path="/prof-settings" element={<ProfSettingsPage />} />
@@ -61,4 +64,3 @@ export default function Routes() {
     </ReactRoutes>
   );
 }
- 
