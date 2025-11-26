@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import useSocket from "@/hooks/useSocket.js";
-import ChatList from "../User_chats/user_chats";
-import LandingPage2 from "./landingPage2";
-import TopFeatures from "./topFeatures";
 import { encryptData, decryptData } from "../../hooks/useLocalStorage";
-import AnimatedBackground from "@/pages/component/AnimatedBackground";
 import Button from "@/pages/component/Button";
 
 const LandingPage = () => {
@@ -19,69 +14,71 @@ const LandingPage = () => {
   run();
 
   return (
-    <div className="font-sans min-h-screen relative overflow-hidden overflow-x-hidden">
-      <AnimatedBackground />
+    <div className="font-sans min-h-screen relative overflow-hidden bg-[#FDFBEE]">
 
-      {/* Navbar */}
-      <header className="flex justify-between items-center px-8 py-6 relative z-10">
-        <div className="flex items-center gap-2">
-          <span className="flex items-center gap-2">
-            <img src="/src/assets/book.png" alt="" className="w-8 h-8" />
-            <span className="text-xl font-bold">ImmacuLearn</span>
-          </span>
-        </div>
+      {/* Top Blue Navbar with curve */}
+      <div className="w-full text-white py-4 px-10 relative overflow-hidden z-10">
 
-        <nav className="absolute left-1/2 transform -translate-x-1/2 flex gap-8">
-          <a href="#about" className="text-black hover:text-blue-800">
-            About
-          </a>
-          <a href="#feature" className="text-black hover:text-blue-800">
-            Feature
-          </a>
-          <a href="#contact" className="text-black hover:text-blue-800">
-            Contact Us
-          </a>
-        </nav>
+        {/* Navbar Content */}
+        <header className="flex justify-between items-center w-full relative z-20">
+          {/* Logo */}
+          <div className="flex items-center gap-2 mt-2">
+            <img src="/src/assets/LandingPage/LOGO.png" alt="Logo" className="w-[80px] h-[60px]"/>
+          </div>
 
-        <Button
-          className="px-4 py-2"
-          style={{
-            background: "linear-gradient(180deg, #6366f1 0%, #4f46e5 100%)",
-            borderRadius: "8px",
-            width: "auto",
-            fontSize: "14px",
-          }}
-        >
-          Log In
-        </Button>
-      </header>
+          {/* Center Navigation */}
+          <nav className="hidden md:flex gap-10 font-medium text-white absolute left-1/2 transform -translate-x-1/2">
+            <a href="#about" className="text-white hover:text-[#ffffff]">About</a>
+            <a href="#feature" className="text-white hover:text-[#ffffff]">Feature</a>
+            <a href="#contact" className="text-white hover:text-[#ffffff]">Contact Us</a>
+          </nav>
+
+          {/* Log In Button */}
+          <Button
+            className="px-5 py-2"
+            style={{
+              background: "linear-gradient(180deg, #6366f1 0%, #4f46e5 100%)",
+              borderRadius: "10px",
+              fontSize: "15px",
+            }}
+          >
+            Log In
+          </Button>
+        </header>
+
+        {/* Header Wave on Navbar */}
+        <img
+          src="/src/assets/LandingPage/header wave.png"
+          alt="Header Wave"
+          className="absolute bottom-[1px] left-0 w-full z-10 h-full"
+        />
+      </div>
 
       {/* Main Section */}
-      <main className="flex flex-col md:flex-row items-center justify-between px-8 lg:px-20 relative z-10">
-        {/* Left Content */}
-        <div className="w-full md:w-1/2 max-w-xl">
-          <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
-            <span className="text-green-500">Wherever</span>
+      <main className="flex flex-col md:flex-row justify-between items-center px-10 lg:px-28 mt-2 relative z-20">
+
+        {/* Left Side */}
+        <div className="w-full md:w-1/2 max-w-[550px]">
+          <h1 className="text-5xl md:text-4xl font-extrabold leading-tight">
+            <span className="text-[#1D4ED8]">Wherever</span>
             <span className="text-black"> you are,</span>
             <br />
-            <span className="text-green-500">Learn Together!</span>
+            <span className="text-[#3B82F6]">Learn Together!</span>
           </h1>
 
-          <p className="mt-8 text-gray-800 text-lg">
-            ImmacuLearn transforms the way you experience education by offering
-            a seamless, engaging, and collaborative platform designed for both
-            students and educators.
+          <p className="mt-6 text-gray-800 text-lg leading-relaxed">
+            ImmacuLearn transforms the way you experience education by offering a seamless,
+            engaging, and collaborative platform designed for both students and educators.
           </p>
 
-          <div className="mt-5">
+          <div className="mt-6">
             <Button
               onClick={() => setShowMainPage(true)}
-              className="px-6 py-3"
+              className="px-7 py-3 shadow-lg"
               style={{
                 background: "linear-gradient(180deg, #6366f1 0%, #4f46e5 100%)",
-                borderRadius: "8px",
-                width: "auto",
-                fontSize: "1rem",
+                borderRadius: "10px",
+                fontSize: "1.1rem",
               }}
             >
               Explore Now
@@ -89,36 +86,30 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Right Image Section */}
-        <div className="w-full md:w-1/2 relative flex justify-end items-start mt-0 md:mt-0">
-          {/* Blob background — flush to top edge, aligned right */}
+        {/* Right Side with Figma elements */}
+        <div className="relative w-full md:w-1/2 flex justify-end mt-5 md:mt-0">
+          {/* Main Interactive Image */}
           <img
-            src="/src/assets/Blob.png"
-            alt="Background Blob"
-            className="absolute right-0 top-0 w-[600px] max-w-full"
-            style={{
-              filter: "blur(0px)",
-              opacity: 0.9,
-              marginTop: "0px",
-              paddingTop: "0px",
-              top: "0",
-            }}
-          />
-
-          {/* Heroes image — aligned to right, slightly above bottom */}
-          <img
-            src="/src/assets/heroes.png"
-            alt="Students Learning"
-            className="w-[550px] relative z-10 max-w-full"
+            src="/src/assets/LandingPage/sample.svg"
+            alt="Students"
+            className="relative w-[600px] z-10"
           />
         </div>
       </main>
 
-      {/* Popups */}
+      {/* School Image Section */}
+      <div className="w-full mt-5">
+        <img
+          src="/src/assets/LandingPage/school.svg"
+          alt="School"
+          className="w-full h-auto object-cover"
+        />
+      </div>
+
+      {/* Popup for Explore Now */}
       {showMainPage && (
         <div className="fixed inset-0 z-50 bg-white">
-          {/* <LandingPage2 /> */}
-          <TopFeatures />
+          <h1 className="text-center mt-20 text-3xl">Main Page Content Here</h1>
         </div>
       )}
     </div>

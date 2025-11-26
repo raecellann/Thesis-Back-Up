@@ -78,7 +78,6 @@ const InitialInvitePage = () => {
               name="spaceName2"
               value={spaceName2}
               onChange={(e) => setSpaceName2(e.target.value)}
-              placeholder="Ex. raecellanndomingogalvez@gmail.com"
               className="w-[70%]"
             />
             <InputField
@@ -87,7 +86,6 @@ const InitialInvitePage = () => {
               name="spaceName3"
               value={spaceName3}
               onChange={(e) => setSpaceName3(e.target.value)}
-              placeholder="Ex. raecellanndomingogalvez@gmail.com"
               className="w-[70%]"
             />
 
