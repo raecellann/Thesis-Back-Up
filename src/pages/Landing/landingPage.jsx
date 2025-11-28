@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { encryptData, decryptData } from "../../hooks/useLocalStorage";
 import Button from "@/pages/component/Button";
+import InputField from "../component/InputField";
 
 const LandingPage = () => {
   const [showMainPage, setShowMainPage] = useState(false);
@@ -150,14 +151,12 @@ const LandingPage = () => {
         className="w-full bg-[#FDFBEE] py-16 px-10 lg:px-28 flex flex-col md:flex-row items-start gap-10 font-grotesque relative"
         id="feature"
       >
-        {/* ⭐ ASTERISK BEHIND (from Figma) */}
         <img
           src="/src/assets/LandingPage/asterisk.png"
           className="absolute left-[-10px] top-[350px] w-[180px] z-0"
           alt="asterisk"
         />
 
-        {/* ➤ GREEN ARROW (Figma position) */}
         <img
           src="/src/assets/LandingPage/arrow.png"
           className="absolute left-[200px] top-[360px] w-[120px] z-20"
@@ -266,9 +265,14 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* ========================= BLUE DIVIDER WITH MARQUEE ========================= */}
+      {/* BLUE MARQUEE */}
       <div className="relative w-full mt-16">
-        {/* Blue Divider with Marquee (above asterisk) */}
+        <img
+          src="/src/assets/LandingPage/violet.svg"
+          alt="Background Accent"
+          className="absolute right-0 w-[200px] opacity-80 z-10 hidden lg:block"
+        />
+
         <div className="w-full h-12 bg-[#4D9BEF] flex items-center justify-center overflow-hidden relative z-40">
           <div className="absolute whitespace-nowrap animate-marquee">
             {Array(10)
@@ -289,16 +293,239 @@ const LandingPage = () => {
 
       <style>
         {`
-    @keyframes marquee {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-    .animate-marquee {
-      display: inline-block;
-      animation: marquee 40s linear infinite;
-    }
-  `}
+        @keyframes marquee {
+          0% { transform: translateX(100%); }
+          100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+          display: inline-block;
+          animation: marquee 40s linear infinite;
+        }
+      `}
       </style>
+
+      {/* BENEFITS SECTION */}
+      <section className="w-full bg-[#FDFBEE] py-8 px-10 lg:px-24 relative">
+        <div className="mb-10 w-max">
+          <div className="bg-[#FFE486] px-8 py-3 rounded-full shadow-md text-left border-2 border-black">
+            <h2 className="text-xl md:text-2xl font-bold font-grotesque text-black">
+              Benefits of using the website
+            </h2>
+          </div>
+        </div>
+
+        <img
+          src="/src/assets/LandingPage/green.svg"
+          alt="Green Accent"
+          className="absolute left-0 bottom-0 w-48 z-0 hidden lg:block"
+        />
+
+        <div className="flex flex-col lg:flex-row justify-start items-start gap-10 relative z-10">
+          {/* LEFT COLUMN */}
+          <div className="grid grid-cols-1 gap-5">
+            {[
+              {
+                title: "Easy Communication",
+                desc: "Allows students to chat and share updates quickly.",
+                icon: "/src/assets/LandingPage/comms.svg",
+              },
+              {
+                title: "Organized Files",
+                desc: "Upload and access important school documents efficiently.",
+                icon: "/src/assets/LandingPage/files.svg",
+              },
+              {
+                title: "Task Tracking",
+                desc: "Track all requirements and stay updated on deadlines.",
+                icon: "/src/assets/LandingPage/tasks.svg",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="bg-[#E8F1FA] p-6 rounded-lg shadow hover:scale-105 transition flex gap-4 items-start relative z-20"
+              >
+                <div className="bg-[#1D4ED8] text-white w-8 h-8 flex items-center justify-center rounded-full font-bold">
+                  {index + 1}
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-black">{item.title}</h3>
+                  <p className="text-sm text-gray-600">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* RIGHT COLUMN */}
+          <div className="grid grid-cols-1 gap-5">
+            {[
+              {
+                title: "Time Management",
+                desc: "Helps students prioritize their tasks effectively.",
+                icon: "/src/assets/LandingPage/time.svg",
+              },
+              {
+                title: "Improved Productivity",
+                desc: "Encourages collaborative work for better output.",
+                icon: "/src/assets/LandingPage/productivity.svg",
+              },
+              {
+                title: "Better Teamwork",
+                desc: "Allows group sharing and syncing progress.",
+                icon: "/src/assets/LandingPage/teamwork.svg",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="bg-[#E8F1FA] p-6 rounded-lg shadow hover:scale-105 transition flex gap-4 items-start"
+              >
+                <div className="bg-[#1D4ED8] text-white w-8 h-8 flex items-center justify-center rounded-full font-bold">
+                  {index + 4}
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-black">{item.title}</h3>
+                  <p className="text-sm text-gray-600">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* LAPTOP MOCKUP */}
+          <div className="hidden lg:flex justify-center items-center relative">
+            <div className="absolute -top-14 -left-10 w-48 h-48 bg-[#4D9BEF] rounded-full blur-3xl opacity-60"></div>
+            <div className="absolute top-10 -right-8 w-40 h-40 bg-[#7FB3FF] rounded-full blur-3xl opacity-70"></div>
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-56 h-56 bg-[#9EC9FF] rounded-full blur-2xl opacity-50"></div>
+
+            <img
+              src="/src/assets/LandingPage/laptop.svg"
+              alt="Laptop Preview"
+              className="w-[380px] relative z-10"
+            />
+          </div>
+        </div>
+
+        <div className="absolute right-10 bottom-4 hidden lg:block text-xs text-gray-600">
+          Scroll down for more information ↻
+        </div>
+      </section>
+
+      {/* ====================== SIGN-UP SECTION (above footer) ====================== */}
+      <section className="w-full bg-[#FDFBEE] py-16 px-10 lg:px-20 flex justify-center">
+        <div className=" p-10 max-w-3xl w-full text-center">
+          <h2 className="text-3xl font-bold text-black">
+            GET STARTED WITH <span className="text-[#1D4ED8]">IMMACULEARN</span>{" "}
+            TODAY
+          </h2>
+
+          <div className="flex flex-col md:flex-row gap-4 justify-center mt-6">
+            <InputField
+              placeholder="Email"
+              className="w-full md:w-[450px] h-12 bg-white border-2 border-black rounded-lg px-4"
+            />
+
+            <Button
+              className="px-8 py-3 font-semibold shadow"
+              style={{
+                background: "#4D9BEF",
+                color: "white",
+                borderRadius: "10px",
+              }}
+            >
+              Sign-up for free!
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================== FOOTER SECTION ====================== */}
+      <div className="w-full mt-20 relative">
+        {/* Background Image */}
+        <img
+          src="/src/assets/LandingPage/school-footer.svg"
+          className="w-full h-auto object-cover"
+          alt="Footer Background"
+        />
+
+        {/* Footer Content */}
+        <div className="absolute top-0 left-0 w-full h-full px-10 lg:px-20 py-16 flex flex-col lg:flex-row justify-between text-black">
+          {/* LOGO + BRAND */}
+          <div className="flex flex-col items-start">
+            <img
+              src="/src/assets/LandingPage/LOGO.png"
+              className="w-[120px]"
+              alt="Logo"
+            />
+            <h3 className="font-bold text-lg mt-2">IMMACULEARN</h3>
+          </div>
+
+          {/* LINKS + RESOURCES */}
+          <div className="flex gap-20 mt-8 lg:mt-0">
+            {/* LINKS */}
+            <div>
+              <h4 className="font-bold text-lg mb-2">Links</h4>
+              <ul className="space-y-1 text-sm">
+                <li>
+                  <a href="#home" className="hover:underline">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="#about" className="hover:underline">
+                    About the system
+                  </a>
+                </li>
+                <li>
+                  <a href="#benefits" className="hover:underline">
+                    Benefits
+                  </a>
+                </li>
+                <li>
+                  <a href="#signup" className="hover:underline">
+                    Sign-up
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* RESOURCES */}
+            <div>
+              <h4 className="font-bold text-lg mb-2">Resources</h4>
+              <ul className="space-y-1 text-sm">
+                <li>
+                  <a href="#" className="hover:underline">
+                    Source Code
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Paper
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* CONTACT FORM */}
+          <div className="mt-8 lg:mt-0">
+            <h4 className="font-bold text-lg mb-2">Get in touch</h4>
+
+            <InputField
+              placeholder="Enter your message here"
+              className="w-[280px] h-12 bg-white border-2 border-black rounded-lg px-4"
+            />
+
+            <Button
+              className="mt-3 px-5 py-2 font-semibold shadow"
+              style={{
+                background: "#1D4ED8",
+                color: "white",
+                borderRadius: "10px",
+              }}
+            >
+              Send
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
