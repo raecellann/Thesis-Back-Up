@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes as ReactRoutes, Route } from "react-router";
 
-import AdminDashboard from "./pages/admin-dashboard/admin-dashboard.jsx";
-import AdminStudents from "./pages/admin-students/admin-students.jsx";
-import AdminTeachers from "./pages/admin-teachers/admin-teachers.jsx";
+import AdminDashboard from "./pages/admin-dashboard/admindashboard.jsx";
+import AdminStudents from "./pages/admin-students/adminstudents.jsx";
+import AdminTeachers from "./pages/admin-teachers/adminteachers.jsx";
 
 import LandingPage from "./pages/Landing/landingPage.jsx";
 import ChatList from "./pages/User_chats/user_chats";
