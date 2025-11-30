@@ -1,6 +1,10 @@
 import React from "react";
 import { Routes as ReactRoutes, Route } from "react-router";
 
+import AdminDashboard from "./pages/admin-dashboard/admin-dashboard.jsx";
+import AdminStudents from "./pages/admin-students/admin-students.jsx";
+import AdminTeachers from "./pages/admin-teachers/admin-teachers.jsx";
+
 import LandingPage from "./pages/Landing/landingPage.jsx";
 import ChatList from "./pages/User_chats/user_chats";
 import LoginPage from "./pages/SignIn/signInPage.jsx"; // Import the LoginPage component
@@ -14,6 +18,7 @@ import NotificationPage from "./pages/Notifications/notification.jsx";
 import FilePage from "./pages/Files/files.jsx";
 import SpacePage from "./pages/Space/SpacePage.jsx";
 import SettingsPage from "./pages/Settings/settings.jsx";
+
 import TaskViewPage from "./pages/Task-View/TaskViewPage.jsx";
 import TaskViewPageAdmin from "./pages/Task-view Admin/Task-View-Admin.jsx";
 import TaskViewAll from "./pages/Task-view Admin/Task-View-All.jsx";
@@ -32,6 +37,11 @@ import CreateSpaceAdmin from "./pages/CreateSpace-Admin/CreateSpace-Admin.jsx";
 export default function Routes() {
   return (
     <ReactRoutes>
+
+      <Route path="/admin-dashboard" element={<AdminDashboard />} />
+      <Route path="/admin-students" element={<AdminStudents />} />
+      <Route path="/admin-teachers" element={<AdminTeachers />} />
+
       <Route path="/" element={<LandingPage />} />
       <Route path="/chatlist" element={<ChatList />} />
       <Route path="/login" element={<LoginPage />} />
