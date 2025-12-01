@@ -34,6 +34,9 @@ import ProfHomePage from "./pages/prof-HomePage/profhomepage.jsx";
 import ProfSettingsPage from "./pages/Prof-Settings/profsettings.jsx";
 import CreateSpaceAdmin from "./pages/CreateSpace-Admin/CreateSpace-Admin.jsx";
 
+import ParentLogin from "./pages/parent-login/parentlogin.jsx";
+import ParentGradeView from "./pages/parent-grade-view/parentgradeview.jsx";
+
 export default function Routes() {
   return (
     <ReactRoutes>
@@ -70,6 +73,9 @@ export default function Routes() {
       <Route path="/prof-grade-viewing" element={<ProfGradeRecordPage />} />
       <Route path="/prof-home" element={<ProfHomePage />} />
       <Route path="/prof-settings" element={<ProfSettingsPage />} />
+
+      <Route path="/parent-grade-login" element={<ParentLogin />} />
+      <Route path="/parent-grade-view" element={<ParentGradeView />} />
 
     </ReactRoutes>
   );
