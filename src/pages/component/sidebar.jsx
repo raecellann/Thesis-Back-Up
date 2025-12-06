@@ -18,34 +18,75 @@ import frierenAvatar from "../../assets/HomePage/frieren-avatar.jpg";
 const Sidebar = () => {
   const [showLogout, setShowLogout] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
+  const [routerModule, setRouterModule] = useState(null);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
-  // Detect current page and set active item
+  const handleNavigate = (path) => {
+    if (!path || typeof window === "undefined") return;
+    window.history.pushState({}, "", path);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  };
+
   useEffect(() => {
-    const currentPath = window.location.pathname;
-    const menuItemsMap = {
-      "/home": "Home",
-      "/space": "Spaces",
-      "/notifications": "Notifications",
-      "/task": "Tasks",
-      "/files": "Files",
-      "/grade-viewing": "Grade Viewing",
-      "/chatlist": "Chats",
-      "/accsettings": "Account",
-      "/settings": "Settings",
+    const updateActive = () => {
+      const currentPath = window.location.pathname;
+      const menuItemsMap = {
+        "/home": "Home",
+        "/space": "Spaces",
+        "/notifications": "Notifications",
+        "/task": "Tasks",
+        "/files": "Files",
+        "/grade-viewing": "Grade Viewing",
+        "/chatlist": "Chats",
+        "/accsettings": "Account",
+        "/settings": "Settings",
+      };
+      setActiveItem(menuItemsMap[currentPath] || null);
     };
-    setActiveItem(menuItemsMap[currentPath] || null);
+
+    updateActive();
+    window.addEventListener("popstate", updateActive);
+    return () => window.removeEventListener("popstate", updateActive);
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    let cancelled = false;
+    import("react-router-dom")
+      .then((mod) => {
+        if (!cancelled) setRouterModule(mod);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (hoveredItem !== null) {
+      const timer = setTimeout(() => setHoveredItem(null), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [hoveredItem]);
 
   const menuItems = [
     { icon: <Home size={20} />, label: "Home", path: "/home" },
     { icon: <Users size={20} />, label: "Spaces", path: "/space" },
-    { icon: <Bell size={20} />, label: "Notifications", path: "/notifications" },
+    {
+      icon: <Bell size={20} />,
+      label: "Notifications",
+      path: "/notifications",
+    },
     { icon: <Calendar size={20} />, label: "Tasks", path: "/task" },
     { icon: <Folder size={20} />, label: "Files", path: "/files" },
   ];
 
   const privateItems = [
-    { icon: <ClipboardList size={20} />, label: "Grade Viewing", path: "/grade-viewing" },
+    {
+      icon: <ClipboardList size={20} />,
+      label: "Grade Viewing",
+      path: "/grade-viewing",
+    },
     { icon: <MessageCircle size={20} />, label: "Chats", path: "/chatlist" },
   ];
 
@@ -71,18 +112,17 @@ const Sidebar = () => {
           -ms-overflow-style: none;
         }
       `}</style>
-      {/* Top Logo and Menu - Scrollable */}
+
       <div className="flex-1 flex flex-col items-start p-5 overflow-y-auto sidebar-scroll">
         <h1 className="font-bold text-lg flex items-center space-x-2 mb-6">
           <img
-            src="src/assets/HomePage/logo.png"
+            src={logo}
             alt="ImmacuLearn Logo"
             className="w-5 h-5 inline-block"
           />
           <span>ImmacuLearn</span>
         </h1>
 
-        {/* Main Menu */}
         <nav className="w-full space-y-1 mb-5">
           {menuItems.map((item) => (
             <SidebarItem
@@ -90,31 +130,32 @@ const Sidebar = () => {
               icon={item.icon}
               label={item.label}
               path={item.path}
-              isActive={activeItem === item.label}
-              onClick={() => setActiveItem(item.label)}
+              isHovered={hoveredItem === item.label}
+              onHover={() => setHoveredItem(item.label)}
+              onClick={() => handleNavigate(item.path)}
+              routerModule={routerModule}
             />
           ))}
         </nav>
 
-        {/* Private Section */}
         <div className="w-full border-t border-blue-300/40 pt-3 mb-5">
           <p className="text-[11px] uppercase text-gray-100 tracking-wide mb-2 font-semibold">
             Private
           </p>
-
           {privateItems.map((item) => (
             <SidebarItem
               key={item.label}
               icon={item.icon}
               label={item.label}
               path={item.path}
-              isActive={activeItem === item.label}
-              onClick={() => setActiveItem(item.label)}
+              isHovered={hoveredItem === item.label}
+              onHover={() => setHoveredItem(item.label)}
+              onClick={() => handleNavigate(item.path)}
+              routerModule={routerModule}
             />
           ))}
         </div>
 
-        {/* Account Section */}
         <div className="w-full border-t border-blue-300/40 pt-3 space-y-1">
           {accountItems.map((item) => (
             <SidebarItem
@@ -122,66 +163,98 @@ const Sidebar = () => {
               icon={item.icon}
               label={item.label}
               path={item.path}
-              isActive={activeItem === item.label}
-              onClick={() => setActiveItem(item.label)}
+              isHovered={hoveredItem === item.label}
+              onHover={() => setHoveredItem(item.label)}
+              onClick={() => handleNavigate(item.path)}
+              routerModule={routerModule}
             />
           ))}
           <SidebarItem
             icon={<LogOut size={20} />}
             label="Log Out Account"
-            isActive={activeItem === "Log Out Account"}
+            isHovered={hoveredItem === "Log Out Account"}
+            onHover={() => setHoveredItem("Log Out Account")}
             onClick={() => setShowLogout(true)}
           />
         </div>
       </div>
 
-      {/* Profile Account */}
       <div className="p-4 border-t border-blue-300/40 flex items-center space-x-3 flex-shrink-0">
         <img
-          src="/src/assets/HomePage/frieren-avatar.jpg"
+          src={frierenAvatar}
           alt="Profile"
           className="w-9 h-9 rounded-full object-cover border border-white/20"
         />
         <span className="text-sm font-semibold">Raecell Ann Galvez</span>
       </div>
 
-      {/* Logout Modal */}
       {showLogout && <Logout onClose={() => setShowLogout(false)} />}
     </div>
   );
 };
 
-const SidebarItem = ({ icon, label, isActive, onClick, path }) => {
+const SidebarItem = ({
+  icon,
+  label,
+  onClick,
+  path,
+  routerModule,
+  isHovered,
+  onHover,
+}) => {
   const handleClick = (e) => {
-    e.preventDefault();
+    e && e.preventDefault();
     onClick && onClick();
-    // Use window.location for full page navigation with refresh
-    if (path && path !== "#") {
-      window.location.href = path;
-    }
   };
 
-  return (
-    <div
-      onClick={handleClick}
-      style={{ textDecoration: 'none', cursor: 'pointer' }}
-      className={`relative flex items-center space-x-3 px-5 py-2.5 text-xs font-medium transition-all duration-150 rounded-md ${
-        isActive ? "text-white" : "text-white/90"
-      }`}
-    >
-      {/* Active Background */}
+  const baseClass = `relative flex items-center space-x-3 px-5 py-2.5 text-xs font-medium
+                     transition-all duration-150 rounded-md 
+                     text-white hover:text-white 
+                     [&_*]:text-white [&_*]:hover:text-white`;
+
+  const inner = (
+    <>
       <div
         className={`absolute left-3 top-0 bottom-0 w-[88%] rounded-full transition-all duration-200 ${
-          isActive ? "bg-black" : ""
+          isHovered ? "bg-black" : ""
         }`}
       ></div>
 
       <div className="relative flex items-center space-x-3 z-10">
         {icon}
-        <span>{label}</span>
+        <span className="text-white">{label}</span>
       </div>
+    </>
+  );
+
+  if (
+    routerModule &&
+    (routerModule.Link || (routerModule.default && routerModule.default.Link))
+  ) {
+    const LinkComp = routerModule.Link || routerModule.default.Link;
+    return (
+      <LinkComp
+        to={path || "#"}
+        onMouseEnter={onHover}
+        onClick={handleClick}
+        className={baseClass}
+      >
+        {inner}
+      </LinkComp>
+    );
+  }
+
+  return (
+    <div
+      onMouseEnter={onHover}
+      onClick={handleClick}
+      style={{ textDecoration: "none", cursor: "pointer" }}
+      className={baseClass}
+    >
+      {inner}
     </div>
   );
 };
+
 
 export default Sidebar;
