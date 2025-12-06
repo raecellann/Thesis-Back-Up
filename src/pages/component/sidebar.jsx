@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Home,
   Users,
@@ -19,12 +19,39 @@ const Sidebar = () => {
   const [showLogout, setShowLogout] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
 
+  // Detect current page and set active item
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    const menuItemsMap = {
+      "/home": "Home",
+      "/space": "Spaces",
+      "/notifications": "Notifications",
+      "/task": "Tasks",
+      "/files": "Files",
+      "/grade-viewing": "Grade Viewing",
+      "/chatlist": "Chats",
+      "/accsettings": "Account",
+      "/settings": "Settings",
+    };
+    setActiveItem(menuItemsMap[currentPath] || null);
+  }, []);
+
   const menuItems = [
-    { icon: <Home size={20} />, label: "Home" },
-    { icon: <Users size={20} />, label: "Spaces" },
-    { icon: <Bell size={20} />, label: "Notifications" },
-    { icon: <Calendar size={20} />, label: "Tasks" },
-    { icon: <Folder size={20} />, label: "Files" },
+    { icon: <Home size={20} />, label: "Home", path: "/home" },
+    { icon: <Users size={20} />, label: "Spaces", path: "/space" },
+    { icon: <Bell size={20} />, label: "Notifications", path: "/notifications" },
+    { icon: <Calendar size={20} />, label: "Tasks", path: "/task" },
+    { icon: <Folder size={20} />, label: "Files", path: "/files" },
+  ];
+
+  const privateItems = [
+    { icon: <ClipboardList size={20} />, label: "Grade Viewing", path: "/grade-viewing" },
+    { icon: <MessageCircle size={20} />, label: "Chats", path: "/chatlist" },
+  ];
+
+  const accountItems = [
+    { icon: <User size={20} />, label: "Account", path: "/accsettings" },
+    { icon: <Settings size={20} />, label: "Settings", path: "/settings" },
   ];
 
   return (
@@ -62,6 +89,7 @@ const Sidebar = () => {
               key={item.label}
               icon={item.icon}
               label={item.label}
+              path={item.path}
               isActive={activeItem === item.label}
               onClick={() => setActiveItem(item.label)}
             />
@@ -74,34 +102,30 @@ const Sidebar = () => {
             Private
           </p>
 
-          <SidebarItem
-            icon={<ClipboardList size={20} />}
-            label="Grade Viewing"
-            isActive={activeItem === "Grade Viewing"}
-            onClick={() => setActiveItem("Grade Viewing")}
-          />
-          <SidebarItem
-            icon={<MessageCircle size={20} />}
-            label="Chats"
-            isActive={activeItem === "Chats"}
-            onClick={() => setActiveItem("Chats")}
-          />
+          {privateItems.map((item) => (
+            <SidebarItem
+              key={item.label}
+              icon={item.icon}
+              label={item.label}
+              path={item.path}
+              isActive={activeItem === item.label}
+              onClick={() => setActiveItem(item.label)}
+            />
+          ))}
         </div>
 
         {/* Account Section */}
         <div className="w-full border-t border-blue-300/40 pt-3 space-y-1">
-          <SidebarItem
-            icon={<User size={20} />}
-            label="Account"
-            isActive={activeItem === "Account"}
-            onClick={() => setActiveItem("Account")}
-          />
-          <SidebarItem
-            icon={<Settings size={20} />}
-            label="Settings"
-            isActive={activeItem === "Settings"}
-            onClick={() => setActiveItem("Settings")}
-          />
+          {accountItems.map((item) => (
+            <SidebarItem
+              key={item.label}
+              icon={item.icon}
+              label={item.label}
+              path={item.path}
+              isActive={activeItem === item.label}
+              onClick={() => setActiveItem(item.label)}
+            />
+          ))}
           <SidebarItem
             icon={<LogOut size={20} />}
             label="Log Out Account"
@@ -127,25 +151,37 @@ const Sidebar = () => {
   );
 };
 
-const SidebarItem = ({ icon, label, isActive, onClick }) => (
-  <div
-    onClick={onClick}
-    className={`relative flex items-center space-x-3 px-5 py-2.5 text-xs font-medium cursor-pointer transition-all duration-150 rounded-md ${
-      isActive ? "text-white" : "text-white/90"
-    }`}
-  >
-    {/* Active Background */}
-    <div
-      className={`absolute left-3 top-0 bottom-0 w-[88%] rounded-full transition-all duration-200 ${
-        isActive ? "bg-black" : ""
-      }`}
-    ></div>
+const SidebarItem = ({ icon, label, isActive, onClick, path }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    onClick && onClick();
+    // Use window.location for full page navigation with refresh
+    if (path && path !== "#") {
+      window.location.href = path;
+    }
+  };
 
-    <div className="relative flex items-center space-x-3 z-10">
-      {icon}
-      <span>{label}</span>
+  return (
+    <div
+      onClick={handleClick}
+      style={{ textDecoration: 'none', cursor: 'pointer' }}
+      className={`relative flex items-center space-x-3 px-5 py-2.5 text-xs font-medium transition-all duration-150 rounded-md ${
+        isActive ? "text-white" : "text-white/90"
+      }`}
+    >
+      {/* Active Background */}
+      <div
+        className={`absolute left-3 top-0 bottom-0 w-[88%] rounded-full transition-all duration-200 ${
+          isActive ? "bg-black" : ""
+        }`}
+      ></div>
+
+      <div className="relative flex items-center space-x-3 z-10">
+        {icon}
+        <span>{label}</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Sidebar;
